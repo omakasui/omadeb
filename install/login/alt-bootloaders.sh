@@ -7,27 +7,20 @@ if ! command -v plymouth >/dev/null 2>&1 && ! dpkg -l | grep -q plymouth; then
 fi
 
 if [ -d "/boot/loader/entries" ]; then # systemd-boot
-  echo "Detected systemd-boot"
-
   for entry in /boot/loader/entries/*.conf; do
     if [ -f "$entry" ]; then
       # Skip fallback entries
       if [[ "$(basename "$entry")" == *"fallback"* ]]; then
-        echo "Skipped: $(basename "$entry") (fallback entry)"
         continue
       fi
 
-      # Skip if splash it already present for some reason
+      # Skip if splash is already present
       if ! grep -q "splash" "$entry"; then
         sudo sed -i '/^options/ s/$/ splash quiet/' "$entry"
-      else
-        echo "Skipped: $(basename "$entry") (splash already present)"
       fi
     fi
   done
 elif [ -f "/etc/default/grub" ]; then # GRUB (standard on Debian)
-  echo "Detected GRUB"
-
   # Backup GRUB config before modifying
   backup_timestamp=$(date +"%Y%m%d%H%M%S")
   sudo cp /etc/default/grub "/etc/default/grub.bak.${backup_timestamp}"
@@ -51,37 +44,24 @@ elif [ -f "/etc/default/grub" ]; then # GRUB (standard on Debian)
 
     sudo sed -i "s/^GRUB_CMDLINE_LINUX_DEFAULT=\".*\"/GRUB_CMDLINE_LINUX_DEFAULT=\"$new_cmdline\"/" /etc/default/grub
 
-    # Debian standard GRUB configuration
+    # Update GRUB configuration
     if command -v update-grub >/dev/null 2>&1; then
-      # Use Debian's update-grub wrapper (preferred)
-      sudo update-grub
+      sudo update-grub >/dev/null 2>&1
     elif command -v grub-mkconfig >/dev/null 2>&1; then
-      # Fallback to direct grub-mkconfig
-      sudo grub-mkconfig -o /boot/grub/grub.cfg
+      sudo grub-mkconfig -o /boot/grub/grub.cfg >/dev/null 2>&1
     else
       echo "Error: No GRUB update command found"
-      echo "Please install grub2-common package"
       exit 1
     fi
-  else
-    echo "GRUB already configured with splash kernel parameters"
   fi
 elif [ -d "/etc/cmdline.d" ]; then # UKI
-  echo "Detected a UKI setup"
-  # Relying on mkinitcpio to assemble a UKI
-  # https://wiki.archlinux.org/title/Unified_kernel_image
-  if ! grep -q splash /etc/cmdline.d/*.conf; then
-    # Need splash, create the omakub file
-    echo "splash" | sudo tee -a /etc/cmdline.d/omakub.conf
+  if ! grep -q splash /etc/cmdline.d/*.conf 2>/dev/null; then
+    echo "splash" | sudo tee -a /etc/cmdline.d/omakub.conf >/dev/null
   fi
-  if ! grep -q quiet /etc/cmdline.d/*.conf; then
-    # Need quiet, create or append the omakub file
-    echo "quiet" | sudo tee -a /etc/cmdline.d/omakub.conf
+  if ! grep -q quiet /etc/cmdline.d/*.conf 2>/dev/null; then
+    echo "quiet" | sudo tee -a /etc/cmdline.d/omakub.conf >/dev/null
   fi
 elif [ -f "/etc/kernel/cmdline" ]; then # UKI Alternate
-  # Alternate UKI kernel cmdline location
-  echo "Detected a UKI setup"
-
   # Backup kernel cmdline config before modifying
   backup_timestamp=$(date +"%Y%m%d%H%M%S")
   sudo cp /etc/kernel/cmdline "/etc/kernel/cmdline.bak.${backup_timestamp}"
@@ -101,11 +81,7 @@ elif [ -f "/etc/kernel/cmdline" ]; then # UKI Alternate
   new_cmdline=$(echo "$new_cmdline" | xargs)
 
   # Write new file
-  echo $new_cmdline | sudo tee /etc/kernel/cmdline
+  echo "$new_cmdline" | sudo tee /etc/kernel/cmdline >/dev/null
 else
-  echo ""
-  echo " None of systemd-boot, GRUB, or UKI detected. Please manually add these kernel parameters:"
-  echo "  - splash (to see the graphical splash screen)"
-  echo "  - quiet (for silent boot)"
-  echo ""
+  echo "No supported bootloader detected. Please manually add 'splash quiet' kernel parameters."
 fi

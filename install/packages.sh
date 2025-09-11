@@ -45,6 +45,7 @@ packages=(
   pipx
   pkg-config
   plocate
+  plymouth-themes
   postgresql-client
   postgresql-client-common
   python3-nautilus
