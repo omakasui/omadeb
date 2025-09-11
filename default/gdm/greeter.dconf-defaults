@@ -1,0 +1,8 @@
+# Omakub GDM Configuration for Debian
+[org/gnome/login-screen]
+logo='/usr/share/pixmaps/omakub/gdm-logo.png'
+
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/pixmaps/omakub/gdm-background.png'
+picture-uri-dark='file:///usr/share/pixmaps/omakub/gdm-background.png'
+picture-options='zoom'

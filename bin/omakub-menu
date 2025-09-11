@@ -1,0 +1,308 @@
+#!/bin/bash
+
+export PATH="$HOME/.local/share/omakub/bin:$PATH"
+
+# Set to true when going directly to a submenu, so we can exit directly
+BACK_TO_EXIT=false
+
+back_to() {
+  local parent_menu="$1"
+
+  if [[ "$DIRECT_ACCESS" == "true" ]]; then
+    exit 0
+  elif [[ -n "$parent_menu" ]]; then
+    "$parent_menu"
+  else
+    show_main_menu
+  fi
+}
+
+menu() {
+  local prompt="$1"
+  local options="$2"
+  local extra="$3"
+  local preselect="$4"
+
+  read -r -a args <<<"$extra"
+
+  if [[ -n "$preselect" ]]; then
+    options=$(echo -e "$options" | sed "s|^$preselect$|<i>$preselect</i>|")
+  fi
+
+  # Show Wofi menu (with markup support)
+  selection=$(echo -e "$options" | omakub-wofi \
+    --show dmenu \
+    --allow-markup \
+    --prompt "$prompt..." \
+    "${args[@]}" \
+    "$wofi_options" 2>>/tmp/omakub.log)
+
+  echo -e "$selection"
+}
+
+terminal() {
+  alacritty --class Omakub -e "$@"
+}
+
+present_terminal() {
+  omakub-launch-terminal-with-presentation "$@"
+}
+
+edit_in_nvim() {
+  notify-send "Editing config file" "$1"
+  alacritty -e nvim "$1"
+}
+
+app_install() {
+  present_terminal "echo 'Installing $1...'; omakub-app-install $1"
+}
+
+app_remove() {
+  present_terminal "echo 'Removing $1...'; omakub-app-remove $1"
+}
+
+show_learn_menu() {
+  case $(menu "Learn" "  Keybindings\n  Omakub\n  Ubuntu\n  Neovim\n  Zellij\n󱆃  Bash" "--width 250 --height 300") in
+  *Keybindings*) omakub-launch-webapp "https://learn.omacom.io/1/read/29/hotkeys" "Omakub Keybindings" ;;
+  *Omakub*) omakub-launch-webapp "https://learn.omacom.io/1/read#leaf_40" "Omakub" ;;
+  *Ubuntu*) omakub-launch-webapp "https://help.ubuntu.com/" "Ubuntu" ;;
+  *Bash*) omakub-launch-webapp "https://devhints.io/bash" "Bash" ;;
+  *Neovim*) omakub-launch-webapp "https://www.lazyvim.org/keymaps" "Neovim" ;;
+  *Zellij*) omakub-launch-webapp "https://zellij.dev/documentation/keybindings.html" "Zellij" ;;
+  *) show_main_menu ;;
+  esac
+}
+
+show_style_menu() {
+  case $(menu "Style" "󰸌  Theme\n  Font\n  Background" "--width 250 --height 250") in
+  *Theme*) show_theme_menu ;;
+  *Font*) show_font_menu ;;
+  *Background*) omakub-theme-bg-next ;;
+  *) show_main_menu ;;
+  esac
+}
+
+show_theme_menu() {
+  theme=$(menu "Theme" "$(omakub-theme-list)" "--width 250 --height 400 -O alphabetical" "$(omakub-theme-current)")
+  if [[ "$theme" == "CNCLD" || -z "$theme" ]]; then
+    back_to show_style_menu
+  else
+    omakub-theme-set "$theme"
+  fi
+}
+
+show_font_menu() {
+  case $(menu "Font" "  Family\n󰧴  Size" "--width 200 --height 200") in
+  *Family*) show_font_family_menu ;;
+  *Size*) present_terminal omakub-font-size-set ;;
+  *) show_main_menu ;;
+  esac
+}
+
+show_font_family_menu() {
+  font=$(menu "Font" "$(omakub-font-list)" "--width 350" "$(omakub-font-current)")
+  if [[ "$font" == "CNCLD" || -z "$font" ]]; then
+    back_to show_style_menu
+  else
+    omakub-font-set "$font"
+  fi
+}
+
+show_setup_menu() {
+  case $(menu "Setup" "  Folders\n  Starship\n  Zellij\n󰌧  Wofi" "--width 250 --height 300") in
+  *Folders*) show_setup_folders_menu ;;
+  *Starship*) edit_in_nvim ~/.config/starship.toml ;;
+  *Zellij*) edit_in_nvim ~/.config/zellij/config.kdl ;;
+  *Wofi*) edit_in_nvim ~/.config/wofi/config ;;
+  *) show_main_menu ;;
+  esac
+}
+
+show_setup_folders_menu() {
+  case $(menu "Folders" "󰮝  Add\n󰮞  Remove" "--width 200 --height 200") in
+  *Add*) present_terminal omakub-app-folder-add ;;
+  *Remove*) present_terminal omakub-app-folder-remove ;;
+  *) show_setup_menu ;;
+  esac
+}
+
+show_install_menu() {
+  case $(menu "Install" "  Web App\n  TUI\n  Tools\n  Style\n  Service\n󰵮  Development\n  Editor\n󱚤  AI\n  Gaming" "--width 250 --height 500") in
+  *Web*) present_terminal omakub-webapp-install ;;
+  *TUI*) present_terminal omakub-tui-install ;;
+  *Tools*) show_install_tools_menu ;;
+  *Style*) show_install_style_menu ;;
+  *Service*) show_install_service_menu ;;
+  *Development*) show_install_development_menu ;;
+  *Editor*) show_install_editor_menu ;;
+  *Gaming*) show_install_gaming_menu ;;
+  *) show_main_menu ;;
+  esac
+}
+
+show_install_tools_menu() {
+  case $(menu "Install" "  ASDControl\n  Flameshot\n  Mainline Kernels\n  Pinta\n  Starship\n  Virtualbox\n󰕼  VLC\n  Xournalpp" "--width 250 --height 500") in
+  *ASDControl*) app_install "asdcontrol" ;;
+  *Flameshot*) app_install "flameshot" ;;
+  *Pinta*) app_install "pinta" ;;
+  *Mainline*) app_install "mainline-kernels" ;;
+  *Xournalpp*) app_install "xournalpp" ;;
+  *Virtualbox*) app_install "virtualbox" ;;
+  *Starship*) app_install "starship" ;;
+  *VLC*) app_install "vlc" ;;
+  *) show_install_menu ;;
+  esac
+}
+
+show_install_service_menu() {
+  case $(menu "Install" "  1password\n  Audacity\n  Chromium\n  Brave\n  Discord\n  Dropbox\n  GeekBench\n  Gimp\n  LibreOffice\n  LocalSend\n  Obsidian\n  Signal\n  Spotify\n  Typora\n  Tailscale\n  Zoom" "--width 250 --height 750") in
+  *1password*) app_install "1password" ;;
+  *Audacity*) app_install "audacity" ;;
+  *Brave*) app_install "brave" ;;
+  *Chromium*) app_install "chromium" ;;
+  *Dropbox*) app_install "dropbox" ;;
+  *LibreOffice*) app_install "libreoffice" ;;
+  *LocalSend*) app_install "localsend" ;;
+  *Discord*) app_install "discord" ;;
+  *GeekBench*) app_install "geekbench" ;;
+  *Gimp*) app_install "gimp" ;;
+  *Obsidian*) app_install "obsidian" ;;
+  *Signal*) app_install "signal" ;;
+  *Spotify*) app_install "spotify" ;;
+  *Typora*) app_install "typora" ;;
+  *Tailscale*) app_install "tailscale" ;;
+  *Zoom*) app_install "zoom" ;;
+  *) show_install_menu ;;
+  esac
+}
+
+show_install_editor_menu() {
+  case $(menu "Install" "  NeoVim\n  VSCode\n  Cursor\n  Zed\n  RubyMine\n  Emacs" "--width 250 --height 400") in
+  *VSCode*) app_install "visual-studio-code" ;;
+  *NeoVim*) app_install "neovim" ;;
+  *Cursor*) app_install "cursor" ;;
+  *Zed*) app_install "zed" ;;
+  *RubyMine*) app_install "rubymine" ;;
+  *Emacs*) app_install "doom-emacs" ;;
+  *) show_install_menu ;;
+  esac
+}
+
+show_install_ai_menu() {
+  case $(menu "Install" "󱚤  Ollama" "--width 200 --height 200") in
+  *Ollama*) app_install "ollama" ;;
+  *) show_install_menu ;;
+  esac
+}
+
+show_install_development_menu() {
+  case $(menu "Install" "  Docker\n󱘲  Databases\n  Github\n󰫏  Ruby on Rails\n  JavaScript\n  Go\n  PHP\n  Python\n  Elixir\n  Zig\n  Rust\n  Java\n  .NET\n  OCaml\n  Clojure" "--width 250 --height 650") in
+  *Docker*) app_install "docker" ;;
+  *Databases*) present_terminal "omakub-install-docker-dbs" ;;
+  *Github*) app_install "github-cli" ;;
+  *Rails*) present_terminal "omakub-install-dev-env ruby" ;;
+  *JavaScript*) show_install_javascript_menu ;;
+  *Go*) present_terminal "omakub-install-dev-env go" ;;
+  *PHP*) present_terminal "omakub-install-dev-env php" ;;
+  *Python*) present_terminal "omakub-install-dev-env python" ;;
+  *Elixir*) show_install_elixir_menu ;;
+  *Zig*) present_terminal "omakub-install-dev-env zig" ;;
+  *Rust*) present_terminal "omakub-install-dev-env rust" ;;
+  *Java*) present_terminal "omakub-install-dev-env java" ;;
+  *NET*) present_terminal "omakub-install-dev-env dotnet" ;;
+  *OCaml*) present_terminal "omakub-install-dev-env ocaml" ;;
+  *Clojure*) present_terminal "omakub-install-dev-env clojure" ;;
+  *) show_install_menu ;;
+  esac
+}
+
+show_install_javascript_menu() {
+  case $(menu "Install" "  Node.js\n  Bun\n  Deno") in
+  *Node*) present_terminal "omakub-install-dev-env node" ;;
+  *Bun*) present_terminal "omakub-install-dev-env bun" ;;
+  *Deno*) present_terminal "omakub-install-dev-env deno" ;;
+  *) show_install_development_menu ;;
+  esac
+}
+
+show_install_elixir_menu() {
+  case $(menu "Install" "  Elixir\n  Phoenix") in
+  *Elixir*) present_terminal "omakub-install-dev-env elixir" ;;
+  *Phoenix*) present_terminal "omakub-install-dev-env phoenix" ;;
+  *) show_install_development_menu ;;
+  esac
+}
+
+show_install_gaming_menu() {
+  case $(menu "Install" "  Steam\n  RetroArch\n󰍳  Minecraft") in
+  *Steam*) app_install "steam" ;;
+  *RetroArch*) app_install "retroarch" ;;
+  *Minecraft*) app_install "minecraft" ;;
+  *) show_install_menu ;;
+  esac
+}
+
+show_install_style_menu() {
+  case $(menu "Install" "󰸌  Theme\n  Background" "--width 350") in
+  *Theme*) present_terminal omakub-theme-install ;;
+  *Background*) nautilus ~/.config/omakub/current/theme/backgrounds ;;
+  *) show_install_menu ;;
+  esac
+}
+
+show_remove_menu() {
+  case $(menu "Remove" "  Web App\n  TUI\n󰀻  App\n󰸌  Theme" "--width 250 --height 300") in
+  *Web*) present_terminal omakub-webapp-remove ;;
+  *TUI*) present_terminal omakub-tui-remove ;;
+  *App*) present_terminal omakub-app-remove ;;
+  *Theme*) present_terminal omakub-theme-remove ;;
+  *) show_main_menu ;;
+  esac
+}
+
+show_update_menu() {
+  case $(menu "Update" "󰟢  Omakub\n󰇅  Firmware\n  Config\n󰸌  Themes" "--width 250 --height 300") in
+  *Omakub*) present_terminal omakub-update ;;
+  *Firmware*) present_terminal omakub-update-firmware ;;
+  *Config*) show_update_config_menu ;;
+  *Themes*) present_terminal omakub-theme-update ;;
+  *) show_main_menu ;;
+  esac
+}
+
+show_update_config_menu() {
+  case $(menu "Use default config" "  Starship\n  Zellij\n  Gnome\n󰍂  GDM\n󱣴  Plymouth\n󰌧  Wofi" "--width 250") in
+  *Starship*) present_terminal omakub-refresh-config starship.toml ;;
+  *Zellij*) present_terminal omakub-refresh-config zellij/config.kdl ;;
+  *Gnome*) present_terminal omakub-refresh-gnome ;;
+  *GDM*) present_terminal omakub-refresh-gdm ;;
+  *Plymouth*) present_terminal omakub-refresh-plymouth ;;
+  *Wofi*) present_terminal omakub-refresh-wofi ;;
+  *) show_update_menu ;;
+  esac
+}
+
+show_main_menu() {
+  go_to_menu "$(menu "Go" "󰀻  Apps\n󰧑  Learn\n  Style\n  Setup\n󰉉  Install\n󰭌  Remove\n  Update\n  About" "--width 250 --height 400")"
+}
+
+go_to_menu() {
+  case "${1,,}" in
+  *apps*) omakub-apps ;;
+  *learn*) show_learn_menu ;;
+  *style*) show_style_menu ;;
+  *theme*) show_theme_menu ;;
+  *setup*) show_setup_menu ;;
+  *install*) show_install_menu ;;
+  *remove*) show_remove_menu ;;
+  *update*) show_update_menu ;;
+  *about*) alacritty --class Omakub -o font.size=9 -e bash -c -l 'fastfetch; read -n 1 -s' ;;
+  esac
+}
+
+if [[ -n "$1" ]]; then
+  BACK_TO_EXIT=true
+  go_to_menu "$1"
+else
+  show_main_menu
+fi
