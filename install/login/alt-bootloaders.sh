@@ -45,8 +45,8 @@ elif [ -f "/etc/default/grub" ]; then # GRUB (standard on Debian)
     sudo sed -i "s/^GRUB_CMDLINE_LINUX_DEFAULT=\".*\"/GRUB_CMDLINE_LINUX_DEFAULT=\"$new_cmdline\"/" /etc/default/grub
 
     # Update GRUB configuration
-    if command -v update-grub >/dev/null 2>&1; then
-      sudo update-grub >/dev/null 2>&1
+    if command -v update-grub2 >/dev/null 2>&1; then
+      sudo update-grub2 >/dev/null 2>&1
     elif command -v grub-mkconfig >/dev/null 2>&1; then
       sudo grub-mkconfig -o /boot/grub/grub.cfg >/dev/null 2>&1
     else
