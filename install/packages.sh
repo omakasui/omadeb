@@ -31,7 +31,7 @@ packages=(
   libgdbm-dev
   libjemalloc2
   libmagickwand-dev
-  libmysqlclient-dev
+  default-libmysqlclient-dev
   libncurses5-dev
   libpq-dev
   libreadline-dev
