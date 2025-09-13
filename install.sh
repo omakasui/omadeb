@@ -42,7 +42,7 @@ source $OMAKUB_INSTALL/packaging/tuis.sh
 
 # Configuration
 show_logo
-show_subtext "Apply Omakub configuration... [3/4]"
+show_subtext "Apply Omadeb configuration... [3/4]"
 source $OMAKUB_INSTALL/config/config.sh
 source $OMAKUB_INSTALL/config/git.sh
 source $OMAKUB_INSTALL/config/xcompose.sh
