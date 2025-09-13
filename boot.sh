@@ -16,9 +16,9 @@ sudo apt-get update >/dev/null
 sudo apt-get install -y git >/dev/null
 
 # Use custom repo if specified, otherwise use default
-OMAKUB_REPO="${OMAKUB_REPO:-Kasui92/omakeb}"
+OMAKUB_REPO="${OMAKUB_REPO:-Kasui92/omadeb}"
 
-echo -e "\e[32m\nCloning Omakeb...\e[0m"
+echo -e "\e[32m\nCloning Omadeb...\e[0m"
 rm -rf ~/.local/share/omakub
 git clone https://github.com/$OMAKUB_REPO.git ~/.local/share/omakub >/dev/null
 
