@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# This script deploys ~/.local/share/omakub/config/X/Y/Z -> ~/.config/X/Y/Z
+#  Copies the named config from ~/.local/share/omakub/config/X/Y/Z -> ~/.config/X/Y/Z.
+# If the config already exists, a backup of the existing will be taken as .bak.TIMESTAMP.
+
 config_file=$1
 
 if [[ -z "$config_file" ]]; then
@@ -15,7 +17,7 @@ USAGE
   exit 1
 fi
 
-# Backup the destination file (with timestamp) to avoid clobbering (Ex: hyprlock.conf.bak.1753817951)
+# Backup the destination file (with timestamp) to avoid clobbering (Ex: alacritty.toml.bak.1753817951)
 user_config_file="${HOME}/.config/$config_file"
 default_config_file="${HOME}/.local/share/omakub/config/$config_file"
 backup_config_file="$user_config_file.bak.$(date +%s)"

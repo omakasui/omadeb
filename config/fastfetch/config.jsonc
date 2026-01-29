@@ -46,7 +46,7 @@
     },
     {
       "type": "swap",
-      "key": "└ └󰓡 ",
+      "key": "└ └󰓡",
       "keyColor": "green"
     },
     {
@@ -62,7 +62,7 @@
       "type": "command",
       "key": "󰟢 OS",
       "keyColor": "blue",
-      "text": "version=$(omakub-version); echo \"Omarell $version\""
+      "text": "version=$(omakub-version); echo \"Omakub $version\""
     },
     {
       "type": "command",
@@ -77,7 +77,7 @@
     },
     {
       "type": "de",
-      "key": "│ ├ ",
+      "key": "│ ├",
       "keyColor": "blue"
     },
     {
@@ -118,13 +118,13 @@
     "break",
     {
       "type": "custom",
-      "format": "\u001b[90m┌────────────────────Uptime / Age────────────────────┐"
+      "format": "\u001b[90m┌────────────────────Age / Uptime────────────────────┐"
     },
     {
       "type": "command",
       "key": "󱦟 OS Age",
       "keyColor": "magenta",
-      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
+      "text": "echo $(( ($(date +%s) - $(stat -c %W /)) / 86400 )) days"
     },
     {
       "type": "uptime",

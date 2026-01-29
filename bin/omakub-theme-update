@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Update all installed Omakub themes by pulling the latest changes from their git repositories.
+
+omakub-refresh-theme
+
 for dir in ~/.config/omakub/themes/*/; do
-  [ -d "$dir" ] && [ ! -L "${dir%/}" ] && echo "Updating: $(basename "$dir")" && git -C "$dir" pull
+  if [[ -d $dir ]] && [[ ! -L "${dir%/}" ]] && [[ -d "$dir/.git" ]]; then
+    echo "Updating: $(basename "$dir")"
+    git -C "$dir" pull
+  fi
 done

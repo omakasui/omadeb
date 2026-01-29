@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Overwrite the user config for themes with the Omakub defaults.
+
+# Add missing theme links
+for f in ~/.local/share/omakub/themes/*; do
+  if [ ! -e ~/.config/omakub/themes/$(basename "$f") ]; then
+    echo -e "\e[32mCreating symlink for $(basename "$f")\e[0m"
+    ln -s "$f" ~/.config/omakub/themes/
+  fi
+done
+
+

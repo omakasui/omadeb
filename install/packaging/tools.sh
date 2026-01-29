@@ -1,14 +1,17 @@
 #!/bin/bash
 
-# Install Fastfetch - Manual installation for Debian compatibility
+# Install Alacritty
+source ~/.local/share/omakub/applications/install/alacritty.sh
+
+# Install Fastfetch
 cd /tmp
 wget -O fastfetch.deb "https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb"
 sudo dpkg -i fastfetch.deb
-sudo apt-get install -f -y  # Fix any missing dependencies
+sudo apt install -f -y
 rm fastfetch.deb
 cd -
 
-# Install mise for managing multiple versions of languages. See https://mise.jdx.dev/
+# Install mise
 sudo install -dm 755 /etc/apt/keyrings
 wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1>/dev/null
 echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=$(dpkg --print-architecture)] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
@@ -16,18 +19,19 @@ sudo apt update
 sudo apt install -y mise
 
 # Install Zellij
-cd /tmp
-wget -O zellij.tar.gz "https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz"
-tar -xf zellij.tar.gz zellij
-sudo install zellij /usr/local/bin
-rm zellij.tar.gz zellij
-cd -
-
-# Install Starship
-source ~/.local/share/omakub/applications/install/starship.sh
+source ~/.local/share/omakub/applications/install/zellij.sh
 
 # Install Docker
 source ~/.local/share/omakub/applications/install/docker.sh
 
+# Install LazyDocker
+source ~/.local/share/omakub/applications/install/lazydocker.sh
+
 # Install GitHub CLI
 source ~/.local/share/omakub/applications/install/github-cli.sh
+
+# Install LazyGit
+source ~/.local/share/omakub/applications/install/lazygit.sh
+
+# Install Starship
+source ~/.local/share/omakub/applications/install/starship.sh

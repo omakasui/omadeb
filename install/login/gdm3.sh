@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Use Wayland by default (check if file exists first)
 if [ -f "/etc/gdm3/custom.conf" ]; then
     sudo sed -i 's/^#WaylandEnable=false/WaylandEnable=true/' /etc/gdm3/custom.conf

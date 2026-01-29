@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Check if there are updates available for GNOME extensions
+echo -e "\e[32m\nUpdate GNOME extensions\e[0m"
+
+gext update --dry-run &>/dev/null
+exit_code=$?
+
+# Exit code 17 means updates are available
+if [ $exit_code -eq 17 ]; then
+  gext update --yes
+  omakub-state set logout-required
+else
+  echo -e "Already up to date."
+fi
+

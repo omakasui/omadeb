@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+omakub-update-system-pkgs
+omakub-update-gnome-extensions
+omakub-migrate
+omakub-hook post-update
+omakub-update-restart
+omakub-update-logout

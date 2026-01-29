@@ -15,8 +15,17 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys next "['<Shift>AudioP
 # Full-screen with title/navigation bar
 gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Shift>F11']"
 
-# Open File Manager (Nautilus) with Super+F (for File)
-gsettings set org.gnome.settings-daemon.plugins.media-keys home "['<Super>f']"
+# Remove default app hotkeys, we set our own later
+gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys home "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys www "[]"
+gsettings set org.gnome.settings-daemon.plugins.media-keys help "[]"
+
+# Cancel input capture with Super+Shift+Escape
+gsettings set org.gnome.mutter.keybindings cancel-input-capture "['<Super><Shift>Escape']"
+
+# Open Tactile settings with Super+Control+T
+gsettings set org.gnome.shell.extensions.tactile show-settings "['<Super><Control>t']"
 
 # Use alt for pinned apps
 gsettings set org.gnome.shell.keybindings switch-to-application-1 "['<Alt>1']"
@@ -37,56 +46,59 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>4
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>5']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>6']"
 
-# Reserve slots for custom keybindings
-gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom9/']"
+# Reserve slots for input source switching
+gsettings set org.gnome.desktop.wm.keybindings switch-input-source "@as []"
+
+# Empty the custom keybindings to start fresh
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[]"
 
 # Set apps launcher (wofi) to Super+Space
-gsettings set org.gnome.desktop.wm.keybindings switch-input-source "@as []"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Apps Launcher'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'omakub-apps'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Super>space'
-
-# Set flameshot (with the sh fix for starting under Wayland) on alternate print screen key
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'Flameshot'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'sh -c -- "flameshot gui"'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Control>Print'
-
-# Start a new alacritty window (rather than just switch to the already open one)
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name 'New Alacritty Window'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command 'alacritty'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding '<Shift><Alt>2'
-
-# Start a new Chromium window (rather than just switch to the already open one)
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ name 'New Chromium Window'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ command 'chromium --new-window'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ binding '<Shift><Alt>1'
-
-# Turn brightness down on Apple monitor (requires ASDControl installed)
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ name 'Apple Brightness Down (ASDControl)'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ binding '<Control>F1'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/ command "sh -c 'asdcontrol \$(asdcontrol --detect /dev/usb/hiddev* 2>/dev/null | grep ^/dev/usb/hiddev | cut -d: -f1) -- -5000'"
-
-# Turn brightness up on Apple monitor (requires ASDControl installed)
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ name 'Apple Brightness Up (ASDControl)'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ binding '<Control>F2'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/ command "sh -c 'asdcontrol \$(asdcontrol --detect /dev/usb/hiddev* 2>/dev/null | grep ^/dev/usb/hiddev | cut -d: -f1) -- +5000'"
-
-# Turn brightness up to max on Apple monitor (requires ASDControl installed)
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/ name 'Apple Brightness Max (ASDControl)'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/ binding '<Control><Shift>F2'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/ command "sh -c 'asdcontrol \$(asdcontrol --detect /dev/usb/hiddev* 2>/dev/null | grep ^/dev/usb/hiddev | cut -d: -f1) -- +60000'"
+omakub-keybinding-add 'Apps Launcher' 'omakub-apps' '<Super>space'
 
 # Set omakub menu to Alt+Super+Space
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/ name 'Omakub Menu'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/ command 'omakub-menu'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/ binding '<Alt><Super>space'
+omakub-keybinding-add 'Omakub Menu' 'omakub-menu' '<Alt><Super>space'
 
 # Set omakub theme switcher to Super+Shift+Control+Space
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/ name 'Omakub Themes'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/ command 'omakub-menu theme'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/ binding '<Super><Shift><Control>space'
+omakub-keybinding-add 'Omakub Themes' 'omakub-menu theme' '<Super><Shift><Control>space'
 
-# Set omakub next backgroun to Super+Shift+Control
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom9/ name 'Omakub Background Next'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom9/ command 'omakub-theme-bg-next'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom9/ binding '<Super><Control>space'
+# Set omakub next background to Super+Shift+Control
+omakub-keybinding-add 'Omakub Background Next' 'omakub-theme-bg-next' '<Super><Control>space'
+
+# Set flameshot (with the sh fix for starting under Wayland) on alternate print screen key
+omakub-keybinding-add 'Flameshot' 'sh -c -- "flameshot gui"' '<Control>Print'
+
+# Turn brightness down on Apple monitor (requires ASDControl installed)
+omakub-keybinding-add 'Apple Brightness Down (ASDControl)' "omakub-cmd-apple-display-brightness -5000" '<Control>F1'
+
+# Turn brightness up on Apple monitor (requires ASDControl installed)
+omakub-keybinding-add 'Apple Brightness Up (ASDControl)' "omakub-cmd-apple-display-brightness +5000" '<Control>F2'
+
+# Turn brightness up to max on Apple monitor (requires ASDControl installed)
+omakub-keybinding-add 'Apple Brightness Max (ASDControl)' "omakub-cmd-apple-display-brightness +60000" '<Control><Shift>F2'
+
+# Set night light toggle to Super+Control+N
+omakub-keybinding-add 'Night Light Toggle' 'omakub-toggle-nightlight' '<Super><Control>n'
+
+# Set screen lock to Super+L
+omakub-keybinding-add 'Omakub System' 'omakub-menu system' '<Super>Escape'
+
+# Set applications hotkeys
+omakub-keybinding-add 'Terminal' 'xdg-terminal-exec' '<Super>Return'
+omakub-keybinding-add 'Default Terminal' 'x-terminal-emulator' '<Control><Alt>t'
+omakub-keybinding-add 'Browser' 'omakub-launch-browser --new-window' '<Shift><Super>b'
+omakub-keybinding-add 'Incognito Browser' 'omakub-launch-browser --private' '<Shift><Alt><Super>b'
+omakub-keybinding-add 'File Manager' 'nautilus --new-window' '<Shift><Super>f'
+omakub-keybinding-add 'Activity' 'omakub-launch-tui btop' '<Super><Shift>t'
+omakub-keybinding-add 'Docker' 'omakub-launch-tui lazydocker' '<Super><Shift>d'
+omakub-keybinding-add 'Spotify' 'spotify' '<Super><Shift>m'
+omakub-keybinding-add 'Editor' 'omakub-launch-editor' '<Super><Shift>n'
+
+# Set webapps hotkeys
+omakub-keybinding-add 'ChatGPT' 'omakub-launch-webapp "https://chatgpt.com" "ChatGPT"' '<Super><Shift>a'
+omakub-keybinding-add 'WhatsApp' 'omakub-launch-webapp "WhatsApp" "https://web.whatsapp.com/" "WhatsApp"' '<Super><Shift><Alt>g'
+omakub-keybinding-add 'YouTube' 'omakub-launch-webapp "https://youtube.com/" "YouTube"' '<Super><Shift>y'
+omakub-keybinding-add 'GitHub' 'omakub-launch-webapp "https://github.com/" "GitHub"' '<Super><Shift>h'
+omakub-keybinding-add 'X' 'omakub-launch-webapp "https://x.com/" "X"' '<Super><Shift>x'
+
+# Enable Compose key on Caps Lock
+gsettings set org.gnome.desktop.input-sources xkb-options "['compose:caps']"
