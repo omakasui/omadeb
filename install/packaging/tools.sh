@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install Alacritty
-source ~/.local/share/omakub/applications/install/alacritty.sh
+source ~/.local/share/omadeb/applications/install/alacritty.sh
 
 # Install Fastfetch
 cd /tmp
@@ -19,19 +19,19 @@ sudo apt update
 sudo apt install -y mise
 
 # Install Zellij
-source ~/.local/share/omakub/applications/install/zellij.sh
+source ~/.local/share/omadeb/applications/install/zellij.sh
 
 # Install Docker
-source ~/.local/share/omakub/applications/install/docker.sh
+source ~/.local/share/omadeb/applications/install/docker.sh
 
 # Install LazyDocker
-source ~/.local/share/omakub/applications/install/lazydocker.sh
+source ~/.local/share/omadeb/applications/install/lazydocker.sh
 
 # Install GitHub CLI
-source ~/.local/share/omakub/applications/install/github-cli.sh
+source ~/.local/share/omadeb/applications/install/github-cli.sh
 
 # Install LazyGit
-source ~/.local/share/omakub/applications/install/lazygit.sh
+source ~/.local/share/omadeb/applications/install/lazygit.sh
 
 # Install Starship
-source ~/.local/share/omakub/applications/install/starship.sh
+source ~/.local/share/omadeb/applications/install/starship.sh

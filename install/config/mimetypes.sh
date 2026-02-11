@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Refresh applications .desktop files
-omakub-refresh-applications
+omadeb-refresh-applications
 update-desktop-database ~/.local/share/applications
 
 # Open PDFs with the Document Viewer

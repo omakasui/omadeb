@@ -1,4 +1,4 @@
-import = [ "~/.config/omakub/current/theme/alacritty.toml" ]
+import = [ "~/.config/omadeb/current/theme/alacritty.toml" ]
 
 [shell]
 program = "zellij"

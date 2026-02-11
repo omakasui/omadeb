@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+echo -e "\e[32mUpdate Omadeb\e[0m"
+
+git -C $OMADEB_PATH pull --autostash
+git -C $OMADEB_PATH --no-pager diff --check || git -C $OMADEB_PATH reset --merge

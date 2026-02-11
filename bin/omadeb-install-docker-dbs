@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Install one of the supported databases in a Docker container with the suitable development options.
+# Usually called via Install > Development > Docker DB from the Omadeb Menu.
+
+if [[ -z "$1" ]]; then
+  echo "Usage: omadeb-install-docker-dbs <mysql|postgresql|redis|mongodb|mariadb|mssql>" >&2
+  exit 1
+fi
+
+case "$1" in
+mysql)
+  sudo docker run -d --restart unless-stopped -p "127.0.0.1:3306:3306" --name=mysql8 -e MYSQL_ROOT_PASSWORD= -e MYSQL_ALLOW_EMPTY_PASSWORD=true mysql:8.4
+  ;;
+postgresql)
+  sudo docker run -d --restart unless-stopped -p "127.0.0.1:5432:5432" --name=postgres18 -e POSTGRES_HOST_AUTH_METHOD=trust postgres:18
+  ;;
+mariadb)
+  sudo docker run -d --restart unless-stopped -p "127.0.0.1:3306:3306" --name=mariadb11 -e MARIADB_ROOT_PASSWORD= -e MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true mariadb:11.8
+  ;;
+redis)
+  sudo docker run -d --restart unless-stopped -p "127.0.0.1:6379:6379" --name=redis redis:7
+  ;;
+mongodb)
+  sudo docker run -d --restart unless-stopped -p "127.0.0.1:27017:27017" --name mongodb -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin123 mongo:noble
+  ;;
+mssql)
+  sudo docker run -d --restart unless-stopped -p "127.0.0.1:1433:1433" --name mssql -e MSSQL_PID=Developer -e ACCEPT_EULA=Y -e "MSSQL_SA_PASSWORD=@dmin123" mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04
+  ;;
+*)
+  echo "Usage: omadeb-install-docker-dbs <mysql|postgresql|redis|mongodb|mariadb|mssql>" >&2
+  exit 1
+  ;;
+esac

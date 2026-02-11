@@ -8,6 +8,6 @@ HISTFILESIZE="${HISTSIZE}"
 source /usr/share/bash-completion/bash_completion
 
 # Set complete path
-export OMAKUB_PATH="$HOME/.local/share/omakub"
-export PATH="$OMAKUB_PATH/bin:$PATH"
+export OMADEB_PATH="$HOME/.local/share/omadeb"
+export PATH="$OMADEB_PATH/bin:$PATH"
 set +h

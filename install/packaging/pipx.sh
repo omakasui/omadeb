@@ -14,5 +14,5 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Also update PATH in the parent shell environment by writing to a temp file
 # that can be sourced by the main installation script
-mkdir -p "$HOME/.local/state/omakub"
-echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> "$HOME/.local/state/omakub/.env_update"
+mkdir -p "$HOME/.local/state/omadeb"
+echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> "$HOME/.local/state/omadeb/.env_update"

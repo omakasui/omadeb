@@ -3,9 +3,9 @@ ERROR_HANDLING=false
 
 # Display recent log lines from the install log
 show_log_tail() {
-  if [[ -f $OMAKUB_INSTALL_LOG_FILE ]]; then
+  if [[ -f $OMADEB_INSTALL_LOG_FILE ]]; then
     echo "Recent installation log:"
-    tail -10 "$OMAKUB_INSTALL_LOG_FILE" | sed 's/\x1b\[[0-9;]*m//g' | while IFS= read -r line; do
+    tail -10 "$OMADEB_INSTALL_LOG_FILE" | sed 's/\x1b\[[0-9;]*m//g' | while IFS= read -r line; do
       echo "  $line"
     done
     echo
@@ -41,7 +41,7 @@ catch_errors() {
   restore_outputs
   clear_logo
 
-  gum style --foreground 1 "Omakub installation stopped!"
+  gum style --foreground 1 "Omadeb installation stopped!"
   show_log_tail
 
   gum style "This command halted with exit code $exit_code:"
@@ -72,14 +72,14 @@ catch_errors() {
       printf "\033[H\033[2J"
 
       # Re-execute installation script
-      exec bash ~/.local/share/omakub/install.sh
+      exec bash ~/.local/share/omadeb/install.sh
       break
       ;;
     "View full log")
       if command -v less &>/dev/null; then
-        less "$OMAKUB_INSTALL_LOG_FILE"
+        less "$OMADEB_INSTALL_LOG_FILE"
       else
-        tail "$OMAKUB_INSTALL_LOG_FILE"
+        tail "$OMADEB_INSTALL_LOG_FILE"
       fi
       ;;
     "Exit" | "")

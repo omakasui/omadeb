@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# omadeb-theme-set: Set a theme, specified by its name.
+# Usage: omadeb-theme-set <theme-name>
+
+if [[ -z $1 ]]; then
+  echo "Usage: omadeb-theme-set <theme-name>" >&2
+  exit 1
+fi
+
+CURRENT_THEME_PATH="$HOME/.config/omadeb/current/theme"
+NEXT_THEME_PATH="$HOME/.config/omadeb/current/next-theme"
+USER_THEMES_PATH="$HOME/.config/omadeb/themes"
+OMADEB_THEMES_PATH="$OMADEB_PATH/themes"
+
+THEME_NAME=$(echo "$1" | sed -E 's/<[^>]+>//g' | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+THEME_PATH="$THEMES_DIR/$THEME_NAME"
+
+# Check if the theme entered exists
+if [[ -d "$USER_THEMES_PATH/$THEME_NAME" ]]; then
+  THEME_PATH="$USER_THEMES_PATH/$THEME_NAME"
+elif [[ -d "$OMADEB_THEMES_PATH/$THEME_NAME" ]]; then
+  THEME_PATH="$OMADEB_THEMES_PATH/$THEME_NAME"
+else
+  echo "Theme '$THEME_NAME' does not exist"
+  exit 1
+fi
+
+# Setup clean next theme directory (for atomic theme config swapping)
+rm -rf "$NEXT_THEME_PATH"
+mkdir -p "$NEXT_THEME_PATH"
+
+# Copy static configs
+cp -r "$THEME_PATH/"* "$NEXT_THEME_PATH/" 2>/dev/null
+
+# Generate dynamic configs
+omadeb-theme-set-templates
+
+# Swap next theme in as current
+rm -rf "$CURRENT_THEME_PATH"
+mv "$NEXT_THEME_PATH" "$CURRENT_THEME_PATH"
+
+# Store theme name for reference
+echo "$THEME_NAME" > "$HOME/.config/omadeb/current/theme.name"
+
+# Change background with theme
+omadeb-theme-bg-next
+
+# Restart components to apply new theme
+omadeb-restart-btop
+omadeb-restart-terminal
+omadeb-restart-zellij
+
+# Change app specific themes
+omadeb-theme-set-gnome
+omadeb-theme-set-vscode
+omadeb-theme-set-obsidian
+
+# Call hook on theme set
+omadeb-hook theme-set "$THEME_NAME"

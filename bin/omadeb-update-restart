@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ -f "$HOME/.local/state/omadeb/reboot-required" ]; then
+  echo
+  gum confirm "Updates require reboot. Ready?" && omadeb-cmd-reboot
+fi
+
+for file in "$HOME"/.local/state/omadeb/restart-*-required; do
+  if [ -f "$file" ]; then
+    filename=$(basename "$file")
+    service=$(echo "$filename" | sed 's/restart-\(.*\)-required/\1/')
+    echo "Restarting $service"
+    omadeb-state clear "$filename"
+    omadeb-restart-"$service"
+  fi
+done

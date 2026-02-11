@@ -11,7 +11,7 @@ if ! command -v gum &> /dev/null; then
 fi
 
 
-export LOGO_PATH="$OMAKUB_PATH/logo.txt"
+export LOGO_PATH="$OMADEB_PATH/logo.txt"
 
 # Minimal padding for desktop terminal
 export PADDING_LEFT=2

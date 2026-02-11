@@ -1,4 +1,4 @@
-# Omakub User Template Example: Alacritty
+# Omadeb User Template Example: Alacritty
 #
 # This is a sample template file demonstrating how to create custom themed
 # configurations. Templates use placeholder variables that get replaced with
@@ -9,8 +9,8 @@
 #   2. Customize it as needed
 #   3. Change your theme to apply the template
 #
-# User templates in ~/.config/omakub/themed/ take priority over the built-in
-# templates in the Omakub default/themed/ directory. This lets you override
+# User templates in ~/.config/omadeb/themed/ take priority over the built-in
+# templates in the Omadeb default/themed/ directory. This lets you override
 # any built-in template or create templates for applications not included
 # by default.
 #

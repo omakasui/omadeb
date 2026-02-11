@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+omadeb-update-system-pkgs
+omadeb-update-gnome-extensions
+omadeb-migrate
+omadeb-hook post-update
+omadeb-update-restart
+omadeb-update-logout

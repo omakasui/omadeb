@@ -9,6 +9,6 @@ export XCURSOR_THEME="Yaru"
 # Terminal
 export TERMINAL=xdg-terminal-exec
 
-# Omakub
-export OMAKUB_PATH=$HOME/.local/share/omakub
-export PATH=$OMAKUB_PATH/bin:$PATH
+# Omadeb
+export OMADEB_PATH=$HOME/.local/share/omadeb
+export PATH=$OMADEB_PATH/bin:$PATH

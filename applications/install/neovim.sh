@@ -15,6 +15,6 @@ sudo apt install -y luarocks tree-sitter-cli
 # Use LazyVim
 rm -rf ~/.config/nvim
 git clone https://github.com/LazyVim/starter ~/.config/nvim
-cp -R ~/.local/share/omakub/config/nvim/* ~/.config/nvim/
+cp -R ~/.local/share/omadeb/config/nvim/* ~/.config/nvim/
 rm -rf ~/.config/nvim/.git
 echo "vim.opt.relativenumber = false" >>~/.config/nvim/lua/config/options.lua

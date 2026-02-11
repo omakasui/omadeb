@@ -53,52 +53,52 @@ gsettings set org.gnome.desktop.wm.keybindings switch-input-source "@as []"
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[]"
 
 # Set apps launcher (wofi) to Super+Space
-omakub-keybinding-add 'Apps Launcher' 'omakub-apps' '<Super>space'
+omadeb-keybinding-add 'Apps Launcher' 'omadeb-apps' '<Super>space'
 
-# Set omakub menu to Alt+Super+Space
-omakub-keybinding-add 'Omakub Menu' 'omakub-menu' '<Alt><Super>space'
+# Set omadeb menu to Alt+Super+Space
+omadeb-keybinding-add 'Omadeb Menu' 'omadeb-menu' '<Alt><Super>space'
 
-# Set omakub theme switcher to Super+Shift+Control+Space
-omakub-keybinding-add 'Omakub Themes' 'omakub-menu theme' '<Super><Shift><Control>space'
+# Set omadeb theme switcher to Super+Shift+Control+Space
+omadeb-keybinding-add 'Omadeb Themes' 'omadeb-menu theme' '<Super><Shift><Control>space'
 
-# Set omakub next background to Super+Shift+Control
-omakub-keybinding-add 'Omakub Background Next' 'omakub-theme-bg-next' '<Super><Control>space'
+# Set omadeb next background to Super+Shift+Control
+omadeb-keybinding-add 'Omadeb Background Next' 'omadeb-theme-bg-next' '<Super><Control>space'
 
 # Set flameshot (with the sh fix for starting under Wayland) on alternate print screen key
-omakub-keybinding-add 'Flameshot' 'sh -c -- "flameshot gui"' '<Control>Print'
+omadeb-keybinding-add 'Flameshot' 'sh -c -- "flameshot gui"' '<Control>Print'
 
 # Turn brightness down on Apple monitor (requires ASDControl installed)
-omakub-keybinding-add 'Apple Brightness Down (ASDControl)' "omakub-cmd-apple-display-brightness -5000" '<Control>F1'
+omadeb-keybinding-add 'Apple Brightness Down (ASDControl)' "omadeb-cmd-apple-display-brightness -5000" '<Control>F1'
 
 # Turn brightness up on Apple monitor (requires ASDControl installed)
-omakub-keybinding-add 'Apple Brightness Up (ASDControl)' "omakub-cmd-apple-display-brightness +5000" '<Control>F2'
+omadeb-keybinding-add 'Apple Brightness Up (ASDControl)' "omadeb-cmd-apple-display-brightness +5000" '<Control>F2'
 
 # Turn brightness up to max on Apple monitor (requires ASDControl installed)
-omakub-keybinding-add 'Apple Brightness Max (ASDControl)' "omakub-cmd-apple-display-brightness +60000" '<Control><Shift>F2'
+omadeb-keybinding-add 'Apple Brightness Max (ASDControl)' "omadeb-cmd-apple-display-brightness +60000" '<Control><Shift>F2'
 
 # Set night light toggle to Super+Control+N
-omakub-keybinding-add 'Night Light Toggle' 'omakub-toggle-nightlight' '<Super><Control>n'
+omadeb-keybinding-add 'Night Light Toggle' 'omadeb-toggle-nightlight' '<Super><Control>n'
 
 # Set screen lock to Super+L
-omakub-keybinding-add 'Omakub System' 'omakub-menu system' '<Super>Escape'
+omadeb-keybinding-add 'Omadeb System' 'omadeb-menu system' '<Super>Escape'
 
 # Set applications hotkeys
-omakub-keybinding-add 'Terminal' 'xdg-terminal-exec' '<Super>Return'
-omakub-keybinding-add 'Default Terminal' 'x-terminal-emulator' '<Control><Alt>t'
-omakub-keybinding-add 'Browser' 'omakub-launch-browser --new-window' '<Shift><Super>b'
-omakub-keybinding-add 'Incognito Browser' 'omakub-launch-browser --private' '<Shift><Alt><Super>b'
-omakub-keybinding-add 'File Manager' 'nautilus --new-window' '<Shift><Super>f'
-omakub-keybinding-add 'Activity' 'omakub-launch-tui btop' '<Super><Shift>t'
-omakub-keybinding-add 'Docker' 'omakub-launch-tui lazydocker' '<Super><Shift>d'
-omakub-keybinding-add 'Spotify' 'spotify' '<Super><Shift>m'
-omakub-keybinding-add 'Editor' 'omakub-launch-editor' '<Super><Shift>n'
+omadeb-keybinding-add 'Terminal' 'xdg-terminal-exec' '<Super>Return'
+omadeb-keybinding-add 'Default Terminal' 'x-terminal-emulator' '<Control><Alt>t'
+omadeb-keybinding-add 'Browser' 'omadeb-launch-browser --new-window' '<Shift><Super>b'
+omadeb-keybinding-add 'Incognito Browser' 'omadeb-launch-browser --private' '<Shift><Alt><Super>b'
+omadeb-keybinding-add 'File Manager' 'nautilus --new-window' '<Shift><Super>f'
+omadeb-keybinding-add 'Activity' 'omadeb-launch-tui btop' '<Super><Shift>t'
+omadeb-keybinding-add 'Docker' 'omadeb-launch-tui lazydocker' '<Super><Shift>d'
+omadeb-keybinding-add 'Spotify' 'spotify' '<Super><Shift>m'
+omadeb-keybinding-add 'Editor' 'omadeb-launch-editor' '<Super><Shift>n'
 
 # Set webapps hotkeys
-omakub-keybinding-add 'ChatGPT' 'omakub-launch-webapp "https://chatgpt.com" "ChatGPT"' '<Super><Shift>a'
-omakub-keybinding-add 'WhatsApp' 'omakub-launch-webapp "WhatsApp" "https://web.whatsapp.com/" "WhatsApp"' '<Super><Shift><Alt>g'
-omakub-keybinding-add 'YouTube' 'omakub-launch-webapp "https://youtube.com/" "YouTube"' '<Super><Shift>y'
-omakub-keybinding-add 'GitHub' 'omakub-launch-webapp "https://github.com/" "GitHub"' '<Super><Shift>h'
-omakub-keybinding-add 'X' 'omakub-launch-webapp "https://x.com/" "X"' '<Super><Shift>x'
+omadeb-keybinding-add 'ChatGPT' 'omadeb-launch-webapp "https://chatgpt.com" "ChatGPT"' '<Super><Shift>a'
+omadeb-keybinding-add 'WhatsApp' 'omadeb-launch-webapp "WhatsApp" "https://web.whatsapp.com/" "WhatsApp"' '<Super><Shift><Alt>g'
+omadeb-keybinding-add 'YouTube' 'omadeb-launch-webapp "https://youtube.com/" "YouTube"' '<Super><Shift>y'
+omadeb-keybinding-add 'GitHub' 'omadeb-launch-webapp "https://github.com/" "GitHub"' '<Super><Shift>h'
+omadeb-keybinding-add 'X' 'omadeb-launch-webapp "https://x.com/" "X"' '<Super><Shift>x'
 
 # Enable Compose key on Caps Lock
 gsettings set org.gnome.desktop.input-sources xkb-options "['compose:caps']"

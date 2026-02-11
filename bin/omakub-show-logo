@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Display the Omakub logo in the terminal.
-
-clear
-echo -e "\033[32m"
-cat <~/.local/share/omakub/logo.txt
-echo -e "\033[0m"
-echo

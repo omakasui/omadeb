@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Install Neovim + LazyVim
-source ~/.local/share/omakub/applications/install/neovim.sh
+source ~/.local/share/omadeb/applications/install/neovim.sh

@@ -77,6 +77,6 @@ gsettings set org.gnome.shell.extensions.alphabetical-app-grid folder-order-posi
 # default settings are good!
 
 # Configure Icon Launcher extension
-ICON_PATH="$HOME/.config/omakub/branding/icon-launcher.png"
+ICON_PATH="$HOME/.config/omadeb/branding/icon-launcher.png"
 gsettings set org.gnome.shell.extensions.icon-launcher custom-icon-path "$ICON_PATH"
-gsettings set org.gnome.shell.extensions.icon-launcher custom-command 'omakub-menu'
+gsettings set org.gnome.shell.extensions.icon-launcher custom-command 'omadeb-menu'

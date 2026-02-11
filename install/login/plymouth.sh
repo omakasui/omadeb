@@ -6,10 +6,10 @@
 
 # Set theme only if different
 current_theme=$(plymouth-set-default-theme 2>/dev/null || echo "")
-if [ "$current_theme" != "omakub" ]; then
-    sudo cp -r "$HOME/.local/share/omakub/default/plymouth" /usr/share/plymouth/themes/omakub/ >/dev/null 2>&1
+if [ "$current_theme" != "omadeb" ]; then
+    sudo cp -r "$HOME/.local/share/omadeb/default/plymouth" /usr/share/plymouth/themes/omadeb/ >/dev/null 2>&1
 
-    if sudo plymouth-set-default-theme omakub >/dev/null 2>&1; then
+    if sudo plymouth-set-default-theme omadeb >/dev/null 2>&1; then
         # Update initramfs after setting theme
         sudo update-initramfs -u >/dev/null 2>&1
     fi
