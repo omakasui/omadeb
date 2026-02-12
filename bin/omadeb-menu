@@ -32,7 +32,7 @@ menu() {
   fi
 
   # Show Wofi menu (with markup support)
-  selection=$(echo -e "$options" | omadeb-wofi \
+  selection=$(echo -e "$options" | omadeb-launch-wofi \
     --show dmenu \
     --allow-markup \
     --prompt "$prompt..." \
