@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="791.4000244140625" height="160" xmlns="http://www.w3.org/2000/svg">
-  <text x="20" y="20" font-family="monospace" font-size="24px" fill="#9ece6a" xml:space="preserve">
-    <tspan x="20" dy="24"> ██████  ███    ███  █████  ██████  ███████ ██████  </tspan>
-    <tspan x="20" dy="24">██    ██ ████  ████ ██   ██ ██   ██ ██      ██   ██ </tspan>
-    <tspan x="20" dy="24">██    ██ ██ ████ ██ ███████ ██   ██ █████   ██████  </tspan>
-    <tspan x="20" dy="24">██    ██ ██  ██  ██ ██   ██ ██   ██ ██      ██   ██ </tspan>
-    <tspan x="20" dy="24"> ██████  ██      ██ ██   ██ ██████  ███████ ██████  </tspan>
+<svg width="601.5999755859375" height="130" xmlns="http://www.w3.org/2000/svg">
+  <text x="20" y="20" font-family="'Courier New', Courier, monospace" font-size="18px" fill="#9ece6a" xml:space="preserve">
+    <tspan x="20" dy="18"> ██████  ███    ███  █████  ██████  ███████ ██████  </tspan>
+    <tspan x="20" dy="18">██    ██ ████  ████ ██   ██ ██   ██ ██      ██   ██ </tspan>
+    <tspan x="20" dy="18">██    ██ ██ ████ ██ ███████ ██   ██ █████   ██████  </tspan>
+    <tspan x="20" dy="18">██    ██ ██  ██  ██ ██   ██ ██   ██ ██      ██   ██ </tspan>
+    <tspan x="20" dy="18"> ██████  ██      ██ ██   ██ ██████  ███████ ██████  </tspan>
   </text>
 </svg>
