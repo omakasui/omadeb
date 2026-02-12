@@ -68,13 +68,13 @@ omadeb-keybinding-add 'Omadeb Background Next' 'omadeb-theme-bg-next' '<Super><C
 omadeb-keybinding-add 'Flameshot' 'sh -c -- "flameshot gui"' '<Control>Print'
 
 # Turn brightness down on Apple monitor (requires ASDControl installed)
-omadeb-keybinding-add 'Apple Brightness Down (ASDControl)' "omadeb-cmd-apple-display-brightness -5000" '<Control>F1'
+omadeb-keybinding-add 'Apple Brightness Down (ASDControl)' "omadeb-brightness-apple-display -5000" '<Control>F1'
 
 # Turn brightness up on Apple monitor (requires ASDControl installed)
-omadeb-keybinding-add 'Apple Brightness Up (ASDControl)' "omadeb-cmd-apple-display-brightness +5000" '<Control>F2'
+omadeb-keybinding-add 'Apple Brightness Up (ASDControl)' "omadeb-brightness-apple-display +5000" '<Control>F2'
 
 # Turn brightness up to max on Apple monitor (requires ASDControl installed)
-omadeb-keybinding-add 'Apple Brightness Max (ASDControl)' "omadeb-cmd-apple-display-brightness +60000" '<Control><Shift>F2'
+omadeb-keybinding-add 'Apple Brightness Max (ASDControl)' "omadeb-brightness-apple-display +60000" '<Control><Shift>F2'
 
 # Set night light toggle to Super+Control+N
 omadeb-keybinding-add 'Night Light Toggle' 'omadeb-toggle-nightlight' '<Super><Control>n'
@@ -86,6 +86,7 @@ omadeb-keybinding-add 'Omadeb System' 'omadeb-menu system' '<Super>Escape'
 omadeb-keybinding-add 'Terminal' 'xdg-terminal-exec' '<Super>Return'
 omadeb-keybinding-add 'Default Terminal' 'x-terminal-emulator' '<Control><Alt>t'
 omadeb-keybinding-add 'Browser' 'omadeb-launch-browser --new-window' '<Shift><Super>b'
+omadeb-keybinding-add 'Browser (Alt)' 'omadeb-launch-browser --new-window' '<Shift><Super>Return'
 omadeb-keybinding-add 'Incognito Browser' 'omadeb-launch-browser --private' '<Shift><Alt><Super>b'
 omadeb-keybinding-add 'File Manager' 'nautilus --new-window' '<Shift><Super>f'
 omadeb-keybinding-add 'Activity' 'omadeb-launch-tui btop' '<Super><Shift>t'
