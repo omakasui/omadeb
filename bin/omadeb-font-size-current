@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Returns the current font size used by the terminal by extracting it from the terminal config.
+# This can be changed using omadeb-font-size-set.
+
+CURRENT_TERMINAL=$(omadeb-terminal-current)
+
+if [ -z "$CURRENT_TERMINAL" ]; then
+  echo "No terminal found"
+  exit 1
+fi
+
+case "${CURRENT_TERMINAL,,}" in
+  alacritty)
+    grep -oP 'size\s*=\s*\K[0-9]+' ~/.config/alacritty/alacritty.toml | head -n1
+    ;;
+  kitty)
+    grep -oP '^font_size\s+\K.*' ~/.config/kitty/kitty.conf | head -n1
+    ;;
+  *)
+    echo "Unsupported terminal: $CURRENT_TERMINAL"
+    exit 1
+    ;;
+esac

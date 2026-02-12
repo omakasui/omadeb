@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Copy over Omakub configs
+# Copy over Omadeb configs
 mkdir -p ~/.config
-cp -R ~/.local/share/omakub/config/* ~/.config/
+cp -R ~/.local/share/omadeb/config/* ~/.config/
 
-# Configure the bash shell using Omakub defaults
-cp ~/.local/share/omakub/default/bashrc ~/.bashrc
+# Configure the bash shell using Omadeb defaults
+cp ~/.local/share/omadeb/default/bashrc ~/.bashrc

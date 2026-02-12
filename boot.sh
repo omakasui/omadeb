@@ -3,11 +3,11 @@
 set -o pipefail
 
 ascii_art='
- ██████  ███    ███  █████  ██   ██ ██    ██ ██████
-██    ██ ████  ████ ██   ██ ██  ██  ██    ██ ██   ██
-██    ██ ██ ████ ██ ███████ █████   ██    ██ ██████
-██    ██ ██  ██  ██ ██   ██ ██  ██  ██    ██ ██   ██
- ██████  ██      ██ ██   ██ ██   ██  ██████  ██████
+ ██████  ███    ███  █████  ██████  ███████ ██████
+██    ██ ████  ████ ██   ██ ██   ██ ██      ██   ██
+██    ██ ██ ████ ██ ███████ ██   ██ █████   ██████
+██    ██ ██  ██  ██ ██   ██ ██   ██ ██      ██   ██
+ ██████  ██      ██ ██   ██ ██████  ███████ ██████
 '
 clear
 echo -e "\n$ascii_art\n"
@@ -16,18 +16,21 @@ sudo apt-get update >/dev/null
 sudo apt-get install -y git >/dev/null
 
 # Use custom repo if specified, otherwise use default
-OMAKUB_REPO="${OMAKUB_REPO:-Kasui92/omakeb}"
+OMADEB_REPO="${OMADEB_REPO:-omakasui/omadeb}"
 
-echo -e "\e[32m\nCloning Omakeb...\e[0m"
-rm -rf ~/.local/share/omakub
-git clone https://github.com/$OMAKUB_REPO.git ~/.local/share/omakub >/dev/null
+# Use custom brand if specified, otherwise use default
+OMADEB_BRAND="${OMADEB_BRAND:-Omadeb}"
 
-if [[ -n "$OMAKUB_REF" ]]; then
-  echo -e "\e[32mUsing branch: $OMAKUB_REF\e[0m"
-	cd ~/.local/share/omakub
-	git fetch origin "${OMAKUB_REF}" && git checkout "${OMAKUB_REF}"
-	cd -
-fi
+echo -e "\nCloning $OMADEB_BRAND from: https://github.com/${OMADEB_REPO}.git"
+rm -rf ~/.local/share/omadeb
+git clone https://github.com/$OMADEB_REPO.git ~/.local/share/omadeb >/dev/null
+
+# Use custom branch if instructed, otherwise default to main
+OMADEB_REF="${OMADEB_REF:-main}"
+echo -e "\e[32mUsing branch: $OMADEB_REF\e[0m"
+cd ~/.local/share/omadeb
+git fetch origin "${OMADEB_REF}" && git checkout "${OMADEB_REF}"
+cd -
 
 echo -e "\nInstallation starting..."
-source ~/.local/share/omakub/install.sh
+source ~/.local/share/omadeb/install.sh

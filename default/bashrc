@@ -1,6 +1,6 @@
-# All the default Omakub aliases and functions
+# All the default Omadeb aliases and functions
 # (don't mess with these directly, just overwrite them here!)
-source ~/.local/share/omakub/default/bash/rc
+source ~/.local/share/omadeb/default/bash/rc
 
 # Add your own exports, aliases, and functions here.
 #

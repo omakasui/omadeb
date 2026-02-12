@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+echo -e "\e[32mUpdate Firmware\e[0m"
+
+if omadeb-cmd-missing fwupdmgr; then
+  omadeb-pkg-add fwupd
+fi
+
+fwupdmgr refresh --force
+sudo fwupdmgr update

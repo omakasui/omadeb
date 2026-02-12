@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Remove all the named packages from the system if they're installed (otherwise ignore).
+
+for pkg in "$@"; do
+  if dpkg -l | grep -q "$pkg"; then
+    sudo apt -y remove --purge "$pkg"
+  fi
+done

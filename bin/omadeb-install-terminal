@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Install one of the approved terminals and set it as the default for Omadeb (Super + Return etc).
+
+if (($# == 0)); then
+  echo "Usage: omadeb-install-terminal [alacritty|kitty]"
+  exit 1
+fi
+
+package="$1"
+
+# Map package name to desktop entry ID
+case "$package" in
+alacritty) desktop_id="Alacritty.desktop" ;;
+kitty) desktop_id="kitty.desktop" ;;
+*)
+  echo "Unknown terminal: $package"
+  exit 1
+  ;;
+esac
+
+# Install package
+if omadeb-app-install "$package"; then
+  # Set as default terminal
+  echo "Setting $package as new default terminal..."
+  omadeb-env-set TERMINAL "$package"
+
+    # Delete existing config file if it exists
+    rm -f ~/.config/xdg-terminals.list
+    rm -f ~/.config/GNOME-xdg-terminals.list
+
+    # Create the current config file with only the selected terminal
+    cat > "~/.config/xdg-terminals.list" << EOF
+# Terminal emulator preference order for xdg-terminal-exec
+# The first found and valid terminal will be used
+$desktop_id
+EOF
+
+  # Copy custom desktop entries with proper X-TerminalArg* keys
+  if [ "$package" == "alacritty" ]; then
+    mkdir -p ~/.local/share/xdg-terminals ~/.local/share/applications
+    cp /usr/share/applications/Alacritty.desktop "$HOME/.local/share/xdg-terminals/Alacritty.desktop"
+    cp /usr/share/applications/Alacritty.desktop "$HOME/.local/share/applications/Alacritty.desktop"
+  fi
+else
+  echo "Failed to install $package."
+  exit 1
+fi

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Install Neovim
 cd /tmp
 wget -O nvim.tar.gz "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz"
 tar -xf nvim.tar.gz
@@ -16,6 +15,6 @@ sudo apt install -y luarocks tree-sitter-cli
 # Use LazyVim
 rm -rf ~/.config/nvim
 git clone https://github.com/LazyVim/starter ~/.config/nvim
-cp -R ~/.local/share/omakub/config/nvim/* ~/.config/nvim/
+cp -R ~/.local/share/omadeb/config/nvim/* ~/.config/nvim/
 rm -rf ~/.config/nvim/.git
 echo "vim.opt.relativenumber = false" >>~/.config/nvim/lua/config/options.lua

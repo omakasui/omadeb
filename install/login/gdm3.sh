@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Use Wayland by default (check if file exists first)
 if [ -f "/etc/gdm3/custom.conf" ]; then
     sudo sed -i 's/^#WaylandEnable=false/WaylandEnable=true/' /etc/gdm3/custom.conf
@@ -12,26 +11,26 @@ fi
 sudo systemctl enable gdm3
 
 # ==============================================================================
-# GDM OMAKUB LOGO SETUP
+# GDM OMADEB LOGO SETUP
 # ==============================================================================
 
 # Get the directory where this script is located
-OMAKUB_GDM_LOGO="$HOME/.local/share/omakub/default/gdm/logo.png"
-OMAKUB_GDM_BACKGROUND="$HOME/.local/share/omakub/default/gdm/background.png"
+OMADEB_GDM_LOGO="$HOME/.local/share/omadeb/default/gdm/logo.png"
+OMADEB_GDM_BACKGROUND="$HOME/.local/share/omadeb/default/gdm/background.png"
 
-# Copy Omakub logo and background to system directory
-sudo mkdir -p /usr/share/pixmaps/omakub/
-if [ -f "$OMAKUB_GDM_LOGO" ]; then
-  sudo cp "$OMAKUB_GDM_LOGO" /usr/share/pixmaps/omakub/gdm-logo.png
+# Copy Omadeb logo and background to system directory
+sudo mkdir -p /usr/share/pixmaps/omadeb/
+if [ -f "$OMADEB_GDM_LOGO" ]; then
+  sudo cp "$OMADEB_GDM_LOGO" /usr/share/pixmaps/omadeb/gdm-logo.png
 fi
-if [ -f "$OMAKUB_GDM_BACKGROUND" ]; then
-  sudo cp "$OMAKUB_GDM_BACKGROUND" /usr/share/pixmaps/omakub/gdm-background.png
+if [ -f "$OMADEB_GDM_BACKGROUND" ]; then
+  sudo cp "$OMADEB_GDM_BACKGROUND" /usr/share/pixmaps/omadeb/gdm-background.png
 fi
 
-# Copy Omakub GDM greeter configuration
-OMAKUB_GDM_CONFIG="$HOME/.local/share/omakub/default/gdm/greeter.dconf-defaults"
-if [ -f "$OMAKUB_GDM_CONFIG" ]; then
-  sudo cp "$OMAKUB_GDM_CONFIG" /etc/gdm3/greeter.dconf-defaults
+# Copy Omadeb GDM greeter configuration
+OMADEB_GDM_CONFIG="$HOME/.local/share/omadeb/default/gdm/greeter.dconf-defaults"
+if [ -f "$OMADEB_GDM_CONFIG" ]; then
+  sudo cp "$OMADEB_GDM_CONFIG" /etc/gdm3/greeter.dconf-defaults
   echo "GDM configuration applied successfully"
 else
   echo "Warning: GDM configuration file not found"

@@ -1,3 +1,0 @@
-#!/bin/bash
-
-echo $(git -C "$OMAKUB_PATH" rev-parse --abbrev-ref HEAD)

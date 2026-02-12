@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Overwrite the user config for themes with the Omadeb defaults.
+
+# Add missing theme links
+for f in ~/.local/share/omadeb/themes/*; do
+  if [ ! -e ~/.config/omadeb/themes/$(basename "$f") ]; then
+    echo -e "\e[32mCreating symlink for $(basename "$f")\e[0m"
+    ln -s "$f" ~/.config/omadeb/themes/
+  fi
+done
+
+

@@ -6,12 +6,12 @@ if [ -f ~/.XCompose ]; then
 fi
 
 tee ~/.XCompose >/dev/null <<EOF
-include "%H/.local/share/omakub/default/xcompose"
+include "%H/.local/share/omadeb/default/xcompose"
 
 # Identification
-<Multi_key> <space> <n> : "$OMAKUB_USER_NAME"
-<Multi_key> <space> <e> : "$OMAKUB_USER_EMAIL"
+<Multi_key> <space> <n> : "$OMADEB_USER_NAME"
+<Multi_key> <space> <e> : "$OMADEB_USER_EMAIL"
 EOF
 
 # Refresh XCompose
-omakub-restart-xcompose
+omadeb-restart-xcompose

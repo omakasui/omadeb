@@ -1,3 +1,0 @@
-#!/bin/bash
-
-omakub-wofi --show drun --sort-order=alphabetical --width 600 --height 350 --prompt "Launch…"
