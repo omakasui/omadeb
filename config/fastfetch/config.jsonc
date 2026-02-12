@@ -62,7 +62,7 @@
       "type": "command",
       "key": "󰟢 OS",
       "keyColor": "blue",
-      "text": "version=$(omadeb-version); echo \"Omadeb $version\"",
+      "text": "version=$(omadeb-version);brand=$(omadeb-brand); echo \"$brand $version\"",
     },
     {
       "type": "command",
