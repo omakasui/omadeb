@@ -50,6 +50,7 @@ omadeb-theme-bg-next
 omadeb-restart-btop
 omadeb-restart-terminal
 omadeb-restart-zellij
+omadeb-restart-opencode
 
 # Change app specific themes
 omadeb-theme-set-gnome

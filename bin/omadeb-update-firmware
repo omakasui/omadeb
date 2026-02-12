@@ -8,5 +8,5 @@ if omadeb-cmd-missing fwupdmgr; then
   omadeb-pkg-add fwupd
 fi
 
-fwupdmgr refresh
+fwupdmgr refresh --force
 sudo fwupdmgr update
