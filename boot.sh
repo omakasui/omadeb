@@ -3,11 +3,11 @@
 set -o pipefail
 
 ascii_art='
- ██████  ███    ███  █████  ██   ██ ██    ██ ██████
-██    ██ ████  ████ ██   ██ ██  ██  ██    ██ ██   ██
-██    ██ ██ ████ ██ ███████ █████   ██    ██ ██████
-██    ██ ██  ██  ██ ██   ██ ██  ██  ██    ██ ██   ██
- ██████  ██      ██ ██   ██ ██   ██  ██████  ██████
+ ██████  ███    ███  █████  ██████  ███████ ██████
+██    ██ ████  ████ ██   ██ ██   ██ ██      ██   ██
+██    ██ ██ ████ ██ ███████ ██   ██ █████   ██████
+██    ██ ██  ██  ██ ██   ██ ██   ██ ██      ██   ██
+ ██████  ██      ██ ██   ██ ██████  ███████ ██████
 '
 clear
 echo -e "\n$ascii_art\n"
@@ -16,9 +16,12 @@ sudo apt-get update >/dev/null
 sudo apt-get install -y git >/dev/null
 
 # Use custom repo if specified, otherwise use default
-OMADEB_REPO="${OMADEB_REPO:-Kasui92/omadeb}"
+OMADEB_REPO="${OMADEB_REPO:-omakasui/omadeb}"
 
-echo -e "\nCloning Omadeb from: https://github.com/${OMADEB_REPO}.git"
+# Use custom brand if specified, otherwise use default
+OMADEB_BRAND="${OMADEB_BRAND:-Omadeb}"
+
+echo -e "\nCloning $OMADEB_BRAND from: https://github.com/${OMADEB_REPO}.git"
 rm -rf ~/.local/share/omadeb
 git clone https://github.com/$OMADEB_REPO.git ~/.local/share/omadeb >/dev/null
 

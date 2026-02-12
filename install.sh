@@ -6,7 +6,7 @@ set -eEo pipefail
 # Define Omadeb locations
 export OMADEB_PATH="$HOME/.local/share/omadeb"
 export OMADEB_INSTALL="$OMADEB_PATH/install"
-export OMADEB_INSTALL_LOG_FILE="/var/log/omadeb-install.log"
+export OMADEB_INSTALL_LOG_FILE="/var/log/${OMADEB_BRAND:-omadeb}-install.log"
 export PATH="$OMADEB_PATH/bin:$PATH"
 
 # Install
