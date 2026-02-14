@@ -16,7 +16,6 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys next "['<Shift>AudioP
 gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Shift>F11']"
 
 # Remove default app hotkeys, we set our own later
-gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "[]"
 gsettings set org.gnome.settings-daemon.plugins.media-keys home "[]"
 gsettings set org.gnome.settings-daemon.plugins.media-keys www "[]"
 gsettings set org.gnome.settings-daemon.plugins.media-keys help "[]"
