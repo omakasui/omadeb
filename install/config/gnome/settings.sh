@@ -3,6 +3,10 @@
 # Center new windows in the middle of the screen
 gsettings set org.gnome.mutter center-new-windows true
 
+# Set the default font to Ubuntu Sans 10
+gsettings set org.gnome.desktop.interface font-name 'Ubuntu Sans 10'
+gsettings set org.gnome.desktop.interface document-font-name 'Sans 10'
+
 # Set Cascadia Mono as the default monospace font
 gsettings set org.gnome.desktop.interface monospace-font-name 'CaskaydiaMono Nerd Font 10'
 
