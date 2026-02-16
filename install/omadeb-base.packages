@@ -61,6 +61,9 @@ wget
 wl-clipboard
 wofi
 xdg-terminal-exec
+yaru-theme-gtk
 yaru-theme-icon
+yaru-theme-sound
+yaru-theme-unity
 zlib1g-dev
 zoxide
