@@ -28,7 +28,7 @@ gdm_wrapper() {
     cp "$file" /usr/share/backgrounds/gdm/gdm-wallpaper || return 1
 
     # Update GDM settings with background image
-    machinectl shell gdm@ /bin/bash -c "gsettings set com.ubuntu.login-screen background-picture-uri 'file:///usr/share/backgrounds/gdm/gdm-wallpaper'; gsettings set com.ubuntu.login-screen background-size 'cover'" 2>/dev/null || return 1
+    machinectl shell gdm@ /bin/bash -c "gsettings set org.gnome.login-screen background-picture-uri 'file:///usr/share/backgrounds/gdm/gdm-wallpaper'; gsettings set org.gnome.login-screen background-size 'cover'" 2>/dev/null || return 1
 
     return 0
 }
