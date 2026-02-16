@@ -27,7 +27,7 @@ if omadeb-app-install "$package"; then
 
     # Delete existing config file if it exists
     rm -f ~/.config/xdg-terminals.list
-    rm -f ~/.config/GNOME-xdg-terminals.list
+    rm -f ~/.config/gnome-xdg-terminals.list
 
     # Create the current config file with only the selected terminal
     cat > "~/.config/xdg-terminals.list" << EOF
