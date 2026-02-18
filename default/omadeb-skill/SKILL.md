@@ -1,16 +1,16 @@
 ---
 name: omadeb
 description: >
-  REQUIRED for ANY changes to Ubuntu desktop, GNOME settings, or system config.
-  Use when editing ~/.config/alacritty/, ~/.config/kitty/, ~/.config/wofi/,
-  ~/.config/omadeb/, or working with GNOME settings. Triggers: GNOME extensions,
-  keybindings, themes, wallpaper, terminal config, night light, dock settings,
-  workspace configuration, display config, or any omadeb-* commands.
+REQUIRED for ANY changes to Debian 13 desktop, GNOME settings, or system config.
+Use when editing ~/.config/alacritty/, ~/.config/kitty/, ~/.config/wofi/,
+~/.config/omadeb/, or working with GNOME settings. Triggers: GNOME extensions,
+keybindings, themes, wallpaper, terminal config, night light, dock settings,
+workspace configuration, display config, or any omadeb-* commands.
 ---
 
 # Omadeb Skill
 
-Manage [Omadeb](https://omadeb.omakasui.org/) Linux systems - an opinionated Ubuntu 24.04+ development environment.
+Manage [Omadeb](https://omadeb.omakasui.org/) Linux systems - an opinionated Debian 13 development environment.
 
 ## When This Skill MUST Be Used
 
@@ -25,7 +25,7 @@ Manage [Omadeb](https://omadeb.omakasui.org/) Linux systems - an opinionated Ubu
 - Night light, workspace settings, display configuration
 - Application installation or removal
 
-**If you're about to edit a config file in ~/.config/ on this Ubuntu system, STOP and use this skill first.**
+**If you're about to edit a config file in ~/.config/ on this Debian 13 system, STOP and use this skill first.**
 
 ## Critical Safety Rules
 
@@ -67,7 +67,7 @@ Omadeb is built on:
 
 | Component           | Purpose              | Config Location            |
 | ------------------- | -------------------- | -------------------------- |
-| **Ubuntu 24.04+**   | Base OS              | `/etc/`, `~/.config/`      |
+| **Debian 13**       | Base OS              | `/etc/`, `~/.config/`      |
 | **GNOME**           | Desktop environment  | GNOME settings (gsettings) |
 | **Alacritty/Kitty** | Terminals            | `~/.config/<terminal>/`    |
 | **Wofi**            | Application launcher | `~/.config/wofi/`          |
@@ -328,7 +328,7 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 40
 ### System
 
 ```bash
-omadeb-update                  # Full system update (Ubuntu + Omadeb)
+omadeb-update                  # Full system update (Debian 13 + Omadeb)
 omadeb-state                   # Show Omadeb state/version
 omadeb-cmd-shutdown            # Shutdown
 omadeb-cmd-reboot              # Reboot

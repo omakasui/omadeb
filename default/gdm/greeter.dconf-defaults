@@ -1,4 +1,4 @@
-# Omadeb GDM Configuration for Debian
+# Omadeb GDM Configuration
 [org/gnome/login-screen]
 logo='/usr/share/pixmaps/omadeb/gdm-logo.png'
 

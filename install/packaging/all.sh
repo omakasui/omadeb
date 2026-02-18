@@ -1,7 +1,6 @@
 #!/bin/bash
 
 run_logged $OMADEB_INSTALL/packaging/base.sh
-run_logged $OMADEB_INSTALL/packaging/remove-snap.sh
 run_logged $OMADEB_INSTALL/packaging/pipx.sh
 run_logged $OMADEB_INSTALL/packaging/fonts.sh
 run_logged $OMADEB_INSTALL/packaging/nvim.sh
