@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+# Reinstall all default Omadeb packages from the stable channel and downgrade any packages that are too new.
+
+# Ensure all packages are installed
+mapfile -t packages < <(grep -v '^#' "$OMADEB_PATH/install/omadeb-base.packages" | grep -v '^$')
+omadeb-pkg-add "${packages[@]}"
