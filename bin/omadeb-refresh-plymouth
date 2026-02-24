@@ -5,3 +5,4 @@
 sudo cp ~/.local/share/omadeb/default/plymouth/* /usr/share/plymouth/themes/omadeb/
 sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/omadeb/omadeb.plymouth 100
 sudo update-alternatives --set default.plymouth /usr/share/plymouth/themes/omadeb/omadeb.plymouth
+sudo update-initramfs -u
