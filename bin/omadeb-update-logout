@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -f "$HOME/.local/state/omadeb/logout-required" ]; then
+if [[ -f $HOME/.local/state/omadeb/logout-required ]]; then
   echo
-  gum confirm "Updates require logout. Ready?" && omadeb-cmd-logout
+  gum confirm "Updates require logout. Ready?" && omadeb-system-logout
 fi
