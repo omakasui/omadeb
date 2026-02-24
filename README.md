@@ -11,7 +11,7 @@ Omadeb is designed to transform a fresh **Debian 13 "Trixie"** installation into
 To install Omadeb, simply run the following command in your terminal:
 
 ```bash
-curl -fsSL https://omakasui.org/omadeb | bash
+curl -fsSL https://omadeb.omakasui.org/install | bash
 ```
 
 ## Documentation
