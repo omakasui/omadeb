@@ -1,35 +1,41 @@
 ---
 name: omadeb
 description: >
-REQUIRED for ANY changes to Debian 13 desktop, GNOME settings, or system config.
-Use when editing ~/.config/alacritty/, ~/.config/kitty/, ~/.config/wofi/,
-~/.config/omadeb/, or working with GNOME settings. Triggers: GNOME extensions,
-keybindings, themes, wallpaper, terminal config, night light, dock settings,
-workspace configuration, display config, or any omadeb-* commands.
+  REQUIRED for end-user customization of Linux desktop, window manager, or system config.
+  Use when editing ~/.config/alacritty/, ~/.config/kitty/, ~/.config/wofi/,
+  ~/.config/omadeb/, or working with GNOME settings. Triggers: GNOME extensions,
+  keybindings, themes, wallpaper, terminal config, night light, dock settings,
+  settings, display config, and user-facing omadeb commands. Excludes Omadeb
+  source development in ~/.local/share/omadeb/ and omadeb-dev-* workflows.
 ---
 
 # Omadeb Skill
 
-Manage [Omadeb](https://omadeb.omakasui.org/) Linux systems - an opinionated Debian 13 development environment.
+Manage [Omadeb](https://omadeb.omakasui.org/) Linux systems - an opinionated Debian Trixie 13 development environment.
+
+This skill is for end-user customization on installed systems.
+It is not for contributing to Omadeb source code.
 
 ## When This Skill MUST Be Used
 
-**ALWAYS invoke this skill when the user's request involves ANY of these:**
+**ALWAYS invoke this skill for end-user requests involving ANY of these:**
 
 - Editing ANY file in `~/.config/omadeb/`
 - Editing terminal configs (alacritty, kitty)
 - Working with GNOME settings (gsettings)
 - GNOME extensions, dock, keybindings, appearance
 - Themes, wallpapers, fonts, appearance changes
-- Any `omadeb-*` command
+- User-facing `omadeb-*` commands (`omadeb-theme-*`, `omadeb-refresh-*`, `omadeb-restart-*`, etc.)
 - Night light, workspace settings, display configuration
 - Application installation or removal
 
-**If you're about to edit a config file in ~/.config/ on this Debian 13 system, STOP and use this skill first.**
+**If you're about to edit a config file in ~/.config/ on this Debian system, STOP and use this skill first.**
+
+**Do NOT use this skill for Omadeb development tasks** (editing files in `~/.local/share/omadeb/`, creating migrations, or running `omadeb-dev-*` workflows).
 
 ## Critical Safety Rules
 
-**NEVER modify anything in `~/.local/share/omadeb/`** - but READING is safe and encouraged.
+**For end-user customization tasks, NEVER modify anything in `~/.local/share/omadeb/`** - but READING is safe and encouraged.
 
 This directory contains Omadeb's source files managed by git. Any changes will be:
 
@@ -61,13 +67,15 @@ This directory contains Omadeb's source files managed by git. Any changes will b
 - `~/.config/omadeb/themes/<custom-name>/` - Custom themes (must be real directories)
 - `~/.config/omadeb/hooks/` - Custom automation hooks
 
+If the request is to develop Omadeb itself, this skill is out of scope. Follow repository development instructions instead of this skill.
+
 ## System Architecture
 
 Omadeb is built on:
 
 | Component           | Purpose              | Config Location            |
 | ------------------- | -------------------- | -------------------------- |
-| **Debian 13**       | Base OS              | `/etc/`, `~/.config/`      |
+| **Ubuntu 24.04+**   | Base OS              | `/etc/`, `~/.config/`      |
 | **GNOME**           | Desktop environment  | GNOME settings (gsettings) |
 | **Alacritty/Kitty** | Terminals            | `~/.config/<terminal>/`    |
 | **Wofi**            | Application launcher | `~/.config/wofi/`          |
@@ -101,7 +109,7 @@ cat $(which omadeb-theme-set)
 | `omadeb-theme-*`      | Theme management                          | `omadeb-theme-set <name>`   |
 | `omadeb-install-*`    | Install optional software                 | `omadeb-install-docker-dbs` |
 | `omadeb-launch-*`     | Launch apps                               | `omadeb-launch-browser`     |
-| `omadeb-cmd-*`        | System commands                           | `omadeb-cmd-shutdown`       |
+| `omadeb-cmd-*`        | System commands                           | `omadeb-system-shutdown`    |
 | `omadeb-app-*`        | Application management                    | `omadeb-app-install <name>` |
 | `omadeb-font-*`       | Font management                           | `omadeb-font-set <name>`    |
 | `omadeb-keybinding-*` | Keybinding management                     | `omadeb-keybinding-add`     |
@@ -328,12 +336,12 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 40
 ### System
 
 ```bash
-omadeb-update                  # Full system update (Debian 13 + Omadeb)
+omadeb-update                  # Full system update (Ubuntu + Omadeb)
 omadeb-state                   # Show Omadeb state/version
-omadeb-cmd-shutdown            # Shutdown
-omadeb-cmd-reboot              # Reboot
-omadeb-cmd-logout              # Logout
-omadeb-cmd-lock-screen         # Lock screen
+omadeb-system-shutdown            # Shutdown
+omadeb-system-reboot              # Reboot
+omadeb-system-logout              # Logout
+omadeb-system-lock-screen         # Lock screen
 ```
 
 ## Troubleshooting
@@ -363,27 +371,16 @@ When user requests system changes:
 3. **Is it a config edit?** Edit in `~/.config/`, never `~/.local/share/omadeb/`
 4. **Is it a theme customization?** Create a NEW custom theme directory
 5. **Is it automation?** Use hooks in `~/.config/omadeb/hooks/`
-6. **Is it a package install?** Check if available via `omadeb-app-install`, otherwise use `apt`
+6. **Is it a package install?** Check if available via `omadeb-app-install`, otherwise use `omadeb-pkg-add`
 7. **Unsure if command exists?** Search with `compgen -c | grep omadeb`
 
-## Development (AI Agents)
+## Out of Scope
 
-When contributing to Omadeb itself (e.g., fixing bugs, adding features), migrations are used to apply changes to existing installations.
+This skill intentionally does not cover Omadeb source development. Do not use this skill for:
 
-### Creating Migrations
-
-```bash
-omadeb-dev-add-migration
-```
-
-This creates a new migration file in `~/.local/share/omadeb/migrations/`. The migration filename is based on the git commit timestamp.
-
-**Migration files** are shell scripts in `~/.local/share/omadeb/migrations/` that run once per system during `omadeb-update`. Use them for:
-
-- Updating user configs with new defaults
-- Installing new dependencies
-- Running one-time setup tasks
-- Applying GNOME settings changes
+- Editing files in `~/.local/share/omadeb/` (`bin/`, `config/`, `default/`, `themes/`, `migrations/`, etc.)
+- Creating or editing migrations
+- Running `omadeb-dev-*` commands
 
 ## Example Requests
 
