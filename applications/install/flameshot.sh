@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt install flameshot -y
+omadeb-pkg-add flameshot

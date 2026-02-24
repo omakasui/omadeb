@@ -36,7 +36,7 @@ run_logged() {
   export CURRENT_SCRIPT="$script"
 
   # Pick up any PATH updates
-  if [[ -f "$HOME/.local/state/omadeb/.env_update" ]]; then
+  if [[ -f $HOME/.local/state/omadeb/.env_update ]]; then
     source "$HOME/.local/state/omadeb/.env_update"
   fi
 

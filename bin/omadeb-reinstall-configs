@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+# Overwrite all user configs with the Omadeb defaults.
+
+if (( EUID == 0 )); then
+  echo "Error: This script should not be run as root"
+  exit 1
+fi
+
+echo "Resetting all Omadeb configs"
+cp -R ~/.local/share/omadeb/config/* ~/.config/
+cp ~/.local/share/omadeb/default/bashrc ~/.bashrc
+echo '[[ -f ~/.bashrc ]] && . ~/.bashrc' | tee ~/.bash_profile >/dev/null
+
+$(bash $OMADEB_PATH/install/config/theme.sh)
+
+omadeb-refresh-gnome
+omadeb-refresh-keybindings
+omadeb-refresh-gdm
+omadeb-refresh-plymouth
+omadeb-refresh-nvim

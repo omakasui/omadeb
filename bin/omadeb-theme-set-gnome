@@ -3,23 +3,34 @@
 # Set GNOME theme according to Omadeb current theme.
 
 # Change gnome modes
-GNOME_THEME=~/.config/omadeb/current/theme/gnome.theme
-GNOME_LIGHT_MODE=~/.config/omadeb/current/theme/light.mode
+GTK_THEME=~/.config/omadeb/current/theme/gtk.theme
+GTK_LIGHT_MODE=~/.config/omadeb/current/theme/light.mode
 
-if [[ -f $GNOME_THEME ]]; then
-  OMADEB_THEME_COLOR=$(<$GNOME_THEME)
+if [[ -f $GTK_THEME ]]; then
+  OMADEB_GTK_THEME=$(<$GTK_THEME)
 else
-  OMADEB_THEME_COLOR="blue"
+  OMADEB_GTK_THEME="Yaru-blue"
 fi
 
-if [[ -f $GNOME_LIGHT_MODE ]]; then
+if [[ -f $GTK_LIGHT_MODE ]]; then
   gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
-  gsettings set org.gnome.desktop.interface gtk-theme "Yaru-$OMADEB_THEME_COLOR"
+  gsettings set org.gnome.desktop.interface gtk-theme "$OMADEB_GTK_THEME"
 else
   gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-  gsettings set org.gnome.desktop.interface gtk-theme "Yaru-$OMADEB_THEME_COLOR-dark"
+  if [[ -d "/usr/share/themes/${OMADEB_GTK_THEME}-dark" ]]; then
+    gsettings set org.gnome.desktop.interface gtk-theme "${OMADEB_GTK_THEME}-dark"
+  else
+    gsettings set org.gnome.desktop.interface gtk-theme "$OMADEB_GTK_THEME"
+  fi
 fi
-gsettings set org.gnome.desktop.interface accent-color "$OMADEB_THEME_COLOR" 2>/dev/null || true
+
+# Change gnome accent color
+GNOME_ACCENT_THEME=~/.config/omadeb/current/theme/accent.theme
+if [[ -f $GNOME_ACCENT_THEME ]]; then
+  gsettings set org.gnome.desktop.interface accent-color "$(<$GNOME_ACCENT_THEME)" 2>/dev/null || true
+else
+  gsettings set org.gnome.desktop.interface accent-color "orange" 2>/dev/null || true
+fi
 
 # Change gnome cursor theme color
 GNOME_CURSOR_THEME=~/.config/omadeb/current/theme/cursor.theme
@@ -34,7 +45,7 @@ GNOME_ICONS_THEME=~/.config/omadeb/current/theme/icons.theme
 if [[ -f $GNOME_ICONS_THEME ]]; then
   gsettings set org.gnome.desktop.interface icon-theme "$(<$GNOME_ICONS_THEME)"
 else
-  gsettings set org.gnome.desktop.interface icon-theme "Yaru-$OMADEB_THEME_COLOR"
+  gsettings set org.gnome.desktop.interface icon-theme "${OMADEB_GTK_THEME}"
 fi
 
 # Change gnome extensions theme

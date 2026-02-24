@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt install -y obs-studio
+omadeb-pkg-add obs-studio

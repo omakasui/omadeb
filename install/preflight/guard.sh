@@ -11,24 +11,21 @@ abort() {
 
 . /etc/os-release
 
-# Check if running on Debian 13 (Trixie)
-[[ "$ID" != "debian" ]] && abort "Debian 13 (Trixie)"
-[[ "$VERSION_ID" != "13" ]] && abort "Debian 13 (Trixie)"
+# Check if running on Debian 13+
+[[ $ID != "debian" ]] && abort "Debian 13 or higher"
+[[ $(echo "$VERSION_ID >= 13" | bc) != "1" ]] && abort "Debian 13 or higher"
 
 # Must be x86 only to fully work
 ARCH=$(uname -m)
-if [[ "$ARCH" != "x86_64" ]] && [[ "$ARCH" != "i686" ]]; then
+if [[ $ARCH != "x86_64" ]] && [[ $ARCH != "i686" ]]; then
   abort "x86_64 CPU"
 fi
 
 # Must have GNOME as desktop environment
 # (other DEs may work but are not officially supported)
-if [[ "$XDG_CURRENT_DESKTOP" != "GNOME" ]]; then
+if [[ $XDG_CURRENT_DESKTOP != "GNOME" ]]; then
   abort "GNOME desktop environment"
 fi
-
-# Must not be on a LVM partition
-(grep -Pq '/dev/(mapper/|disk/by-id/dm)' /etc/fstab || mount | grep -q /dev/mapper/) && abort "No LVM partitions"
 
 # Cleared all guards
 echo "Guards: OK"

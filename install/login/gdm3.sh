@@ -1,11 +1,7 @@
 #!/bin/bash
 
-# Use Wayland by default (check if file exists first)
-if [ -f "/etc/gdm3/custom.conf" ]; then
-    sudo sed -i 's/^#WaylandEnable=false/WaylandEnable=true/' /etc/gdm3/custom.conf
-else
-    echo "Warning: /etc/gdm3/custom.conf not found"
-fi
+# Use Wayland by default
+sudo sed -i 's/^#WaylandEnable=false/WaylandEnable=true/' /etc/gdm3/custom.conf
 
 # Enable GDM3 service
 sudo systemctl enable gdm3
@@ -20,16 +16,16 @@ OMADEB_GDM_BACKGROUND="$HOME/.local/share/omadeb/default/gdm/background.png"
 
 # Copy Omadeb logo and background to system directory
 sudo mkdir -p /usr/share/pixmaps/omadeb/
-if [ -f "$OMADEB_GDM_LOGO" ]; then
+if [[ -f $OMADEB_GDM_LOGO ]]; then
   sudo cp "$OMADEB_GDM_LOGO" /usr/share/pixmaps/omadeb/gdm-logo.png
 fi
-if [ -f "$OMADEB_GDM_BACKGROUND" ]; then
+if [[ -f $OMADEB_GDM_BACKGROUND ]]; then
   sudo cp "$OMADEB_GDM_BACKGROUND" /usr/share/pixmaps/omadeb/gdm-background.png
 fi
 
 # Copy Omadeb GDM greeter configuration
 OMADEB_GDM_CONFIG="$HOME/.local/share/omadeb/default/gdm/greeter.dconf-defaults"
-if [ -f "$OMADEB_GDM_CONFIG" ]; then
+if [[ -f $OMADEB_GDM_CONFIG ]]; then
   sudo cp "$OMADEB_GDM_CONFIG" /etc/gdm3/greeter.dconf-defaults
   echo "GDM configuration applied successfully"
 else

@@ -98,7 +98,6 @@ omadeb-keybinding-add 'ChatGPT' 'omadeb-launch-webapp "https://chatgpt.com" "Cha
 omadeb-keybinding-add 'WhatsApp' 'omadeb-launch-webapp "WhatsApp" "https://web.whatsapp.com/" "WhatsApp"' '<Super><Shift><Alt>g'
 omadeb-keybinding-add 'YouTube' 'omadeb-launch-webapp "https://youtube.com/" "YouTube"' '<Super><Shift>y'
 omadeb-keybinding-add 'GitHub' 'omadeb-launch-webapp "https://github.com/" "GitHub"' '<Super><Shift>h'
-omadeb-keybinding-add 'X' 'omadeb-launch-webapp "https://x.com/" "X"' '<Super><Shift>x'
 
 # Enable Compose key on Caps Lock
 gsettings set org.gnome.desktop.input-sources xkb-options "['compose:caps']"

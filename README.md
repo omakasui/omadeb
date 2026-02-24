@@ -11,7 +11,7 @@ Omadeb is designed to transform a fresh **Debian 13 "Trixie"** installation into
 To install Omadeb, simply run the following command in your terminal:
 
 ```bash
-curl -fsSL https://omakasui.org/omadeb | bash
+curl -fsSL https://omadeb.omakasui.org/install | bash
 ```
 
 ## Documentation
@@ -20,10 +20,8 @@ To learn about the project it comes from and the key features it has inherited, 
 
 ## License
 
-Omadeb is released under the [MIT License](https://opensource.org/licenses/MIT), like the original Omakub project.
+Omadeb is released under the [MIT License](https://opensource.org/licenses/MIT).
 
 ## Contributing
 
-As a fork of Omakub, Omadeb welcomes contributions that extend existing functionality without compromising compatibility with the base project.
-
-If you want to contribute to Omakub core features, visit the [official repository](https://github.com/basecamp/omakub).
+Omadeb welcomes contributions that extend existing functionality without compromising compatibility with the base project.
