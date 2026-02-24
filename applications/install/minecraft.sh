@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install -y openjdk-8-jdk
+omadeb-pkg-add openjdk-8-jdk
 
 cd /tmp
 wget https://launcher.mojang.com/download/Minecraft.deb
