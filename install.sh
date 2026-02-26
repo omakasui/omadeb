@@ -3,6 +3,9 @@
 # Exit immediately if a command exits with a non-zero status
 set -eEo pipefail
 
+# Reset to the default OMADEB_BRAND to avoid issues with Retry
+OMADEB_BRAND="${OMADEB_BRAND:-Omadeb}"
+
 # Define Omadeb locations
 export OMADEB_PATH="$HOME/.local/share/omadeb"
 export OMADEB_INSTALL="$OMADEB_PATH/install"

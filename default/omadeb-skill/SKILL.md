@@ -75,7 +75,7 @@ Omadeb is built on:
 
 | Component           | Purpose              | Config Location            |
 | ------------------- | -------------------- | -------------------------- |
-| **Ubuntu 24.04+**   | Base OS              | `/etc/`, `~/.config/`      |
+| **Debian 13+**      | Base OS              | `/etc/`, `~/.config/`      |
 | **GNOME**           | Desktop environment  | GNOME settings (gsettings) |
 | **Alacritty/Kitty** | Terminals            | `~/.config/<terminal>/`    |
 | **Wofi**            | Application launcher | `~/.config/wofi/`          |
@@ -336,7 +336,7 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 40
 ### System
 
 ```bash
-omadeb-update                  # Full system update (Ubuntu + Omadeb)
+omadeb-update                  # Full system update (Debian + Omadeb)
 omadeb-state                   # Show Omadeb state/version
 omadeb-system-shutdown            # Shutdown
 omadeb-system-reboot              # Reboot

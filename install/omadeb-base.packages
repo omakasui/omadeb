@@ -19,7 +19,6 @@ fzf
 gir1.2-clutter-1.0
 gir1.2-gtop-2.0
 gnome-shell-extension-manager
-gnome-shell-extension-user-theme
 gnome-software-plugin-flatpak
 gnome-sushi
 gnome-tweaks
@@ -62,7 +61,7 @@ xdg-terminal-exec
 yaru-theme-gtk
 yaru-theme-icon
 yaru-theme-sound
-yaru-theme-unity
+yaru-theme-gnome-shell
 wget
 wl-clipboard
 wofi
