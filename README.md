@@ -1,6 +1,6 @@
 # Omadeb
 
-Omadeb a Modern, Elegant, Development-Focused Setup for *Debian (trixie)* and *Gnome*.
+Omadeb is a Modern, Elegant, Development-Focused Setup for *Debian (trixie)* and *Gnome*.
 
 ## Documentation
 
