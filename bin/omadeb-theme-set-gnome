@@ -29,7 +29,7 @@ GNOME_SHELL_THEME=~/.config/omadeb/current/theme/shell.theme
 if [[ -f $GNOME_SHELL_THEME ]]; then
   gsettings set org.gnome.shell.extensions.user-theme name "$(<$GNOME_SHELL_THEME)"
 else
-  if [[ $GNOME_GTK_THEME == *"yaru"* ]]; then
+  if [[ ${GNOME_GTK_THEME,,} == *"yaru"* ]]; then
     if [[ -f $GTK_LIGHT_MODE ]]; then
       gsettings set org.gnome.shell.extensions.user-theme name "Yaru"
     else
