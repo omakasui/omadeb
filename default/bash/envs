@@ -11,4 +11,4 @@ export TERMINAL=xdg-terminal-exec
 
 # Omadeb
 export OMADEB_PATH=$HOME/.local/share/omadeb
-export PATH=$OMADEB_PATH/bin:$PATH
+export PATH=$OMADEB_PATH/bin:$PATH:$HOME/.local/bin

@@ -2,6 +2,10 @@
 
 set -e
 
+# Capture update logs (CLICOLOR_FORCE keeps gum styled when stdout is piped through tee)
+export CLICOLOR_FORCE=1
+exec > >(tee "/tmp/omadeb-update.log") 2>&1
+
 omadeb-update-system-pkgs
 omadeb-update-gnome-extensions
 omadeb-migrate

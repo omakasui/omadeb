@@ -1,22 +1,10 @@
-<h1 align="center">Omadeb</h1>
+# Omadeb
 
-## Installation
-
-Omadeb is designed to transform a fresh **Debian 13 "Trixie"** installation into a complete development environment. Make sure you have:
-
-- A fresh Debian 13 installation
-- A stable internet connection (the setup downloads packages and extensions)
-- At least 30 minutes for the complete installation process
-
-To install Omadeb, simply run the following command in your terminal:
-
-```bash
-curl -fsSL https://omadeb.omakasui.org/install | bash
-```
+Omadeb is a Modern, Elegant, Development-Focused Setup for *Debian (trixie)* and *Gnome*.
 
 ## Documentation
 
-To learn about the project it comes from and the key features it has inherited, visit the [official Omakub manual](https://manuals.omamix.org/1/read).
+You can find everything you need to use Omadeb in the [manual](https://omadeb.omakasui.org/manual).
 
 ## License
 
@@ -25,3 +13,5 @@ Omadeb is released under the [MIT License](https://opensource.org/licenses/MIT).
 ## Contributing
 
 Omadeb welcomes contributions that extend existing functionality without compromising compatibility with the base project.
+
+If you want to contribute to improving the manual, here is the [repository with the docs](https://github.com/omakasui/omadeb.omakasui.org).
