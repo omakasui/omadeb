@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo
+
 if [[ -f $HOME/.local/state/omadeb/reboot-required ]]; then
   echo
   gum confirm "Updates require reboot. Ready?" && omadeb-system-reboot
