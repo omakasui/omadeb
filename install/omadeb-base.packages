@@ -58,10 +58,10 @@ systemd-container
 ufw
 unzip
 xdg-terminal-exec
-yaru-theme-gtk
-yaru-theme-icon
-yaru-theme-sound
-yaru-theme-gnome-shell
+omakasui-yaru-theme-gtk
+omakasui-yaru-theme-icon
+omakasui-yaru-theme-sound
+omakasui-yaru-theme-gnome-shell
 wget
 wl-clipboard
 wofi
