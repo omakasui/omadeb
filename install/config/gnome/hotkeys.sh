@@ -83,7 +83,7 @@ omadeb-keybinding-add 'Omadeb System' 'omadeb-menu system' '<Super>Escape'
 
 # Set applications hotkeys
 omadeb-keybinding-add 'Terminal' 'xdg-terminal-exec' '<Super>Return'
-omadeb-keybinding-add 'Default Terminal' 'x-terminal-emulator' '<Control><Alt>t'
+omadeb-keybinding-add 'Default Terminal' 'xdg-terminal-exec' '<Control><Alt>t'
 omadeb-keybinding-add 'Browser' 'omadeb-launch-browser --new-window' '<Shift><Super>b'
 omadeb-keybinding-add 'Browser (Alt)' 'omadeb-launch-browser --new-window' '<Shift><Super>Return'
 omadeb-keybinding-add 'Incognito Browser' 'omadeb-launch-browser --private' '<Shift><Alt><Super>b'
