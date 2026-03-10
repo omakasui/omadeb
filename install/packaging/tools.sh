@@ -14,9 +14,6 @@ cd -
 # Install mise
 source ~/.local/share/omadeb/applications/install/mise.sh
 
-# Install Zellij
-source ~/.local/share/omadeb/applications/install/zellij.sh
-
 # Install Docker
 source ~/.local/share/omadeb/applications/install/docker.sh
 

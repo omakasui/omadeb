@@ -64,6 +64,7 @@ omakasui-yaru-theme-gtk
 omakasui-yaru-theme-icon
 omakasui-yaru-theme-sound
 omakasui-yaru-theme-gnome-shell
+omakasui-zellij
 wget
 wl-clipboard
 wofi
