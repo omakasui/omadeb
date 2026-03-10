@@ -7,4 +7,4 @@ if [[ ! -f /etc/apt/sources.list.d/mise.list ]]; then
 fi
 
 sudo apt update
-omakub-pkg-add mise
+omadeb-pkg-add mise

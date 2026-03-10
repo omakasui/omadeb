@@ -3,7 +3,7 @@
 # Set the default terminal emulator for Nautilus to match the one set for Omabuntu.
 
 if [[ -z $1 ]]; then
-  echo "Usage: omakub-terminal-set-nautilus [terminal-emulator]"
+  echo "Usage: omadeb-terminal-set-nautilus [terminal-emulator]"
   exit 1
 fi
 
