@@ -1,5 +1,5 @@
 #!/bin/bash
 
-sudo apt remove --purge -y "libreoffice*"
+omadeb-pkg-drop "libreoffice*"
 sudo apt -y clean
 sudo apt -y autoremove
