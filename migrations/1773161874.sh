@@ -1,4 +1,5 @@
-echo "Change to omakasui packages for Fastfetch, Lazygit, Lazydocker and Zellij"
+echo "Change to omakasui packages for Gum, Fastfetch, Lazygit, Lazydocker and Zellij"
+omadeb-pkg-add omakasui-gum
 omadeb-pkg-add omakasui-fastfetch
 omadeb-pkg-add omakasui-lazygit
 omadeb-pkg-add omakasui-lazydocker
