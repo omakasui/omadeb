@@ -16,9 +16,6 @@ gsettings set org.gnome.settings-daemon.plugins.power ambient-enabled false
 gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 6
 
-# Disable the hotkeys in the Dash to Dock extension (most likely culprit)
-gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
-
 # Disable the night light feature by default
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false
 # Set night light schedule to manual (so it doesn't turn on automatically)
