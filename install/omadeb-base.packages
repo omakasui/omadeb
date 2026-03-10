@@ -58,6 +58,8 @@ systemd-container
 ufw
 unzip
 xdg-terminal-exec
+omakasui-lazydocker
+omakasui-lazygit
 omakasui-yaru-theme-gtk
 omakasui-yaru-theme-icon
 omakasui-yaru-theme-sound
