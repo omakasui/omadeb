@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt remove -y openjdk-8-jdk minecraft-launcher
+omadeb-pkg-drop openjdk-8-jdk minecraft-launcher

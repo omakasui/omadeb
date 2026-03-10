@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sudo apt remove --purge -y code
+omadeb-pkg-drop code
 rm -rf ~/.config/Code/User
