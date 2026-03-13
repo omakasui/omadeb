@@ -42,7 +42,7 @@ curl -fsSL https://keyrings.omakasui.org/omakasui-packages.gpg.key \
   | sudo tee /usr/share/keyrings/omakasui-packages.gpg > /dev/null
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/omakasui-packages.gpg] \
-  https://packages.omakasui.org $(. /etc/os-release && echo $VERSION_CODENAME) main" \
+  https://packages.omakasui.org $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") main" \
   | sudo tee /etc/apt/sources.list.d/omakasui.list
 
 # Refresh the APT cache
