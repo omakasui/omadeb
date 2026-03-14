@@ -71,7 +71,7 @@ install_app() {
 }
 
 install_font() {
-  present_terminal "echo 'Installing $1...'; omadeb-font-install $2 && sleep 2 && omadeb-font-set '$3'"
+  present_terminal "echo 'Installing $1...'; omadeb-install-font $2 && sleep 2 && omadeb-font-set '$3'"
 }
 
 install_terminal() {
@@ -264,7 +264,7 @@ show_install_style_menu() {
   case $(menu "Install" "󰸌  Theme\n  Background\n  Font" "--width 250 --height 170") in
   *Theme*) present_terminal omadeb-theme-install ;;
   *Background*) omadeb-theme-bg-install ;;
-  *Font*) present_terminal omadeb-font-install ;;
+  *Font*) show_install_font_menu ;;
   *) show_install_menu ;;
   esac
 }
