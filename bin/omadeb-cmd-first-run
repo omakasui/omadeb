@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Finish the installation of Omadeb with items that can only be done after logging in.
+
+set -e
+
+FIRST_RUN_MODE=~/.local/state/omadeb/first-run.mode
+
+if [[ -f $FIRST_RUN_MODE ]]; then
+  rm -f "$FIRST_RUN_MODE"
+
+  bash "$OMADEB_PATH/install/first-run/firewall.sh"
+  sudo rm -f /etc/sudoers.d/first-run
+
+  bash "$OMADEB_PATH/install/first-run/welcome.sh"
+fi
