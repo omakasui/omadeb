@@ -3,6 +3,6 @@ set -e
 
 # Reinstall the Omadeb configuration directory from the git source.
 
-git clone "https://github.com/omakasui/omadeb.git" ~/.local/share/omadeb-new >/dev/null
+git clone --depth=1 "https://github.com/omakasui/omadeb.git" ~/.local/share/omadeb-new >/dev/null
 mv $OMADEB_PATH ~/.local/share/omadeb-old
 mv ~/.local/share/omadeb-new $OMADEB_PATH
