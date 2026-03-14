@@ -10,7 +10,7 @@ if [[ ! -f /etc/apt/keyrings/packages.microsoft.gpg || ! -f /usr/share/keyrings/
   cd -
 fi
 
-sudo apt update
+sudo apt-get update
 omadeb-pkg-add code
 
 mkdir -p ~/.config/Code/User

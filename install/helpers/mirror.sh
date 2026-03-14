@@ -51,4 +51,4 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/omaka
   | sudo tee /etc/apt/sources.list.d/omakasui.list
 
 # Refresh the APT cache
-sudo apt update
+sudo apt-get update
