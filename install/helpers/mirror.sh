@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Ensure we have curl available
+if ! command -v curl &> /dev/null; then
+  omadeb-pkg-add curl
+fi
+
 # Some Debian installation methods have a broken APT configuration that prevents from installing packages.
 # This script checks for that and tries to fix it by creating a new APT sources file in /etc/apt/sources.list.d/ with the correct Debian repositories.
 
@@ -46,4 +51,4 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/omaka
   | sudo tee /etc/apt/sources.list.d/omakasui.list
 
 # Refresh the APT cache
-sudo apt update
+sudo apt-get update
