@@ -20,8 +20,8 @@ back_to() {
 }
 
 toggle_existing_menu() {
-  if pgrep -x "wofi" > /dev/null; then
-    pkill -x "wofi"
+  if pgrep -f "walker.*--dmenu" >/dev/null; then
+    walker --close >/dev/null 2>&1
     exit 0
   fi
 }
@@ -35,18 +35,14 @@ menu() {
   read -r -a args <<<"$extra"
 
   if [[ -n $preselect ]]; then
-    options=$(echo -e "$options" | sed "s|^$preselect$|<i>$preselect</i>|")
+    local index
+    index=$(echo -e "$options" | grep -nxF "$preselect" | cut -d: -f1)
+    if [[ -n $index ]]; then
+      args+=("-c" "$index")
+    fi
   fi
 
-  # Show Wofi menu (with markup support)
-  selection=$(echo -e "$options" | omadeb-launch-wofi \
-    --show dmenu \
-    --allow-markup \
-    --prompt "$prompt..." \
-    "${args[@]}" \
-    "$wofi_options" 2>>/dev/null)
-
-  echo -e "$selection"
+  echo -e "$options" | omadeb-launch-walker --dmenu --width 295 --minheight 1 --maxheight 630 -p "$prompt…" "${args[@]}" 2>/dev/null
 }
 
 terminal() {
@@ -86,6 +82,10 @@ remove_app() {
   present_terminal "echo 'Removing $1...'; omadeb-app-remove $2"
 }
 
+remove_font() {
+  present_terminal "echo 'Removing $1...'; omadeb-remove-font $2"
+}
+
 show_learn_menu() {
   case $(menu "Learn" "  Keybindings\n  Omadeb\n  Debian\n  Neovim\n  Zellij\n󱆃  Bash" "--width 250 --height 280") in
   *Keybindings*) omadeb-launch-webapp "https://omadeb.omakasui.org/manual/essentials/hotkeys" "Omadeb Keybindings" ;;
@@ -99,7 +99,7 @@ show_learn_menu() {
 }
 
 show_trigger_menu() {
-  case $(menu "Trigger" "  Share\n󰔎  Toggle" "--width 250 --height 130") in
+  case $(menu "Trigger" "  Share\n󰔎  Toggle") in
   *Share*) show_share_menu ;;
   *Toggle*) show_toggle_menu ;;
   *) show_main_menu ;;
@@ -107,7 +107,7 @@ show_trigger_menu() {
 }
 
 show_share_menu() {
-  case $(menu "Share" "  Clipboard\n  File \n  Folder" "--width 250 --height 170") in
+  case $(menu "Share" "  Clipboard\n  File \n  Folder") in
   *Clipboard*) omadeb-cmd-share clipboard ;;
   *File*) terminal bash -c "omadeb-cmd-share file" ;;
   *Folder*) terminal bash -c "omadeb-cmd-share folder" ;;
@@ -116,7 +116,7 @@ show_share_menu() {
 }
 
 show_toggle_menu() {
-  case $(menu "Toggle" "󰔎  Nightlight" "--width 250 --height 80") in
+  case $(menu "Toggle" "󰔎  Nightlight") in
   *Nightlight*) omadeb-toggle-nightlight ;;
   *) back_to show_trigger_menu ;;
   esac
@@ -124,25 +124,20 @@ show_toggle_menu() {
 
 
 show_style_menu() {
-  case $(menu "Style" "󰸌  Theme\n  Font\n  Background" "--width 250 --height 180") in
+  case $(menu "Style" "󰸌  Theme\n  Font\n  Background") in
   *Theme*) show_theme_menu ;;
   *Font*) show_font_menu ;;
-  *Background*) omadeb-theme-bg-next ;;
+  *Background*) show_background_menu ;;
   *) show_main_menu ;;
   esac
 }
 
 show_theme_menu() {
-  theme=$(menu "Theme" "$(omadeb-theme-list)" "--width 250 --height 470 -O alphabetical" "$(omadeb-theme-current)")
-  if [[ $theme == "CNCLD" || -z $theme ]]; then
-    back_to show_style_menu
-  else
-    omadeb-theme-set "$theme"
-  fi
+  omadeb-launch-walker -m menus:omadebthemes --width 800 --minheight 400
 }
 
 show_font_menu() {
-  case $(menu "Font" "  Family\n󰧴  Size" "--width 250 --height 130") in
+  case $(menu "Font" "  Family\n󰧴  Size") in
   *Family*) show_font_family_menu ;;
   *Size*) present_terminal omadeb-font-size-set ;;
   *) show_main_menu ;;
@@ -158,14 +153,18 @@ show_font_family_menu() {
   fi
 }
 
+show_background_menu() {
+  omadeb-launch-walker -m menus:omadebBackgroundSelector --width 800 --minheight 400
+}
+
 show_setup_menu() {
-  case $(menu "Setup" "  System Sleep\n  Folders\n  Keybindings\n  Starship\n  Zellij\n󰌧  Wofi\n󰞅  XCompose" "--width 250 --height 320") in
+  case $(menu "Setup" "󰤆  System Sleep\n  Folders\n  Keybindings\n  Starship\n  Zellij\n󰌧  Walker\n󰞅  XCompose") in
   *System*) show_setup_system_menu ;;
   *Folders*) show_setup_folders_menu ;;
   *Keybindings*) show_setup_keybindings_menu ;;
   *Starship*) edit_in_nvim ~/.config/starship.toml ;;
   *Zellij*) edit_in_nvim ~/.config/zellij/config.kdl ;;
-  *Wofi*) edit_in_nvim ~/.config/wofi/config ;;
+  *Walker*) open_in_editor ~/.config/walker/config.toml && omadeb-restart-walker ;;
   *XCompose*) open_in_editor ~/.XCompose && omadeb-restart-xcompose ;;
   *) show_main_menu ;;
   esac
@@ -180,14 +179,14 @@ show_setup_system_menu() {
     options="$options󰒲  Disable Suspend"
   fi
 
-  case $(menu "System" "$options" "--width 250 --height 80") in
+  case $(menu "System" "$options") in
   *Suspend*) omadeb-toggle-suspend ;;
   *) show_setup_menu ;;
   esac
 }
 
 show_setup_folders_menu() {
-  case $(menu "Folders" "󰮝  Add\n󰮞  Remove" "--width 250 --height 130") in
+  case $(menu "Folders" "󰮝  Add\n󰮞  Remove") in
   *Add*) present_terminal omadeb-app-folder-add ;;
   *Remove*) present_terminal omadeb-app-folder-remove ;;
   *) show_setup_menu ;;
@@ -195,7 +194,7 @@ show_setup_folders_menu() {
 }
 
 show_setup_keybindings_menu() {
-  case $(menu "Keybindings" "   Add\n   Remove" "--width 250 --height 130") in
+  case $(menu "Keybindings" "   Add\n   Remove") in
   *Add*) present_terminal omadeb-keybinding-add ;;
   *Remove*) present_terminal omadeb-keybinding-remove ;;
   *) show_setup_menu ;;
@@ -203,7 +202,7 @@ show_setup_keybindings_menu() {
 }
 
 show_install_menu() {
-  case $(menu "Install" "  Package\n  Web App\n  TUI\n  Service\n  Browser\n  Utility\n  Style\n󰵮  Development\n  Editor\n  Terminal\n󱚤  AI\n  Gaming" "--width 250 --height 510") in
+  case $(menu "Install" "  Package\n  Web App\n  TUI\n  Service\n  Browser\n  Utility\n  Style\n󰵮  Development\n  Editor\n  Terminal\n󱚤  AI\n  Gaming") in
   *Package*) present_terminal omadeb-pkg-install ;;
   *Web*) present_terminal omadeb-webapp-install ;;
   *TUI*) present_terminal omadeb-tui-install ;;
@@ -221,7 +220,7 @@ show_install_menu() {
 }
 
 show_install_service_menu() {
-  case $(menu "Install" "  1password\n  Bitwarden\n  Discord\n  Dropbox\n  LibreOffice\n  LocalSend\n  ObsStudio\n  Obsidian\n  Signal\n  Spotify\n  Typora\n  Tailscale\n  Zoom" "--width 250 --height 550") in
+  case $(menu "Install" "  1password\n  Bitwarden\n  Discord\n  Dropbox\n  LibreOffice\n  LocalSend\n  ObsStudio\n  Obsidian\n  Signal\n  Spotify\n  Typora\n  Tailscale\n  Zoom") in
   *1password*) install_app "1password" "1password" ;;
   *Bitwarden*) install_app "Bitwarden" "bitwarden" ;;
   *Discord*) install_app "Discord" "discord" ;;
@@ -240,17 +239,17 @@ show_install_service_menu() {
 }
 
 show_install_browser_menu() {
-  case $(menu "Install" "  Brave\n  Chromium\n  Firefox\n  Zen" "--width 250 --height 210") in
+  case $(menu "Install" "  Brave\n  Chromium\n  Firefox\n  Zen") in
   *Brave*) install_app "Brave" "brave" ;;
   *Chromium*) install "Chromium" "chromium" ;;
   *Firefox*) install "Firefox" "firefox-esr" ;;
-  *Zen*) install "Zen Browser" "zen" ;;
+  *Zen*) install_app "Zen Browser" "zen" ;;
   *) show_install_menu ;;
   esac
 }
 
 show_install_utility_menu() {
-  case $(menu "Install" "  ASDControl\n  Flameshot\n  Pinta\n  Starship\n  Xournalpp" "--width 250 --height 245") in
+  case $(menu "Install" "  ASDControl\n  Flameshot\n  Pinta\n  Starship\n  Xournalpp") in
   *ASDControl*) install_app "ASDControl" "asdcontrol" ;;
   *Flameshot*) install "Flameshot" "flameshot" ;;
   *Pinta*) install_app "Pinta" "pinta" ;;
@@ -261,7 +260,7 @@ show_install_utility_menu() {
 }
 
 show_install_style_menu() {
-  case $(menu "Install" "󰸌  Theme\n  Background\n  Font" "--width 250 --height 170") in
+  case $(menu "Install" "󰸌  Theme\n  Background\n  Font") in
   *Theme*) present_terminal omadeb-theme-install ;;
   *Background*) omadeb-theme-bg-install ;;
   *Font*) show_install_font_menu ;;
@@ -270,7 +269,7 @@ show_install_style_menu() {
 }
 
 show_install_font_menu() {
-  case $(menu "Install" "  Cascadia Mono\n  JetBrains Mono\n  iA Fonts\n  Microsoft Core Fonts" "--width 350 --height 210") in
+  case $(menu "Install" "  Cascadia Mono\n  JetBrains Mono\n  iA Fonts\n  Microsoft Core Fonts" "--width 350") in
   *Cascadia*) install_font "Cascadia Mono" "cascadia-mono" "Cascadia Mono Nerd Font" ;;
   *JetBrains*) install_font "JetBrains Mono" "jetbrains-mono" "JetBrains Mono" ;;
   *iA*) install_font "iA Fonts" "iafonts" "iA Fonts Nerd Font" ;;
@@ -280,8 +279,8 @@ show_install_font_menu() {
 }
 
 show_install_development_menu() {
-  case $(menu "Install" "  Docker\n󱘲  Databases\n󰊢  Git\n󰫏  Ruby on Rails\n  JavaScript\n  Go\n  PHP\n  Python\n  Elixir\n  Zig\n  Rust\n  Java\n  .NET\n  OCaml\n  Clojure\n  Scala" "--width 250 --height 600") in
-  *Docker*) install "Docker" "docker"  ;;
+  case $(menu "Install" "  Docker\n󱘲  Databases\n󰊢  Git\n󰫏  Ruby on Rails\n  JavaScript\n  Go\n  PHP\n  Python\n  Elixir\n  Zig\n  Rust\n  Java\n  .NET\n  OCaml\n  Clojure\n  Scala") in
+  *Docker*) install "Docker" "docker" ;;
   *Databases*) show_install_databases_menu ;;
   *Git*) show_install_git_menu ;;
   *Rails*) present_terminal "omadeb-install-dev-env ruby" ;;
@@ -302,7 +301,7 @@ show_install_development_menu() {
 }
 
 show_install_databases_menu() {
-  case $(menu "Install Databases" "  MySQL\n  PostgreSQL\n  MariaDB\n  Redis\n  MongoDB\n󱘲  MSSQL" "--width 250 --height 280") in
+  case $(menu "Install Databases" "  MySQL\n  PostgreSQL\n  MariaDB\n  Redis\n  MongoDB\n󱘲  MSSQL") in
   *MySQL*) present_terminal "omadeb-install-docker-dbs mysql" ;;
   *PostgreSQL*) present_terminal "omadeb-install-docker-dbs postgresql" ;;
   *MariaDB*) present_terminal "omadeb-install-docker-dbs mariadb" ;;
@@ -314,7 +313,7 @@ show_install_databases_menu() {
 }
 
 show_install_git_menu() {
-  case $(menu "Install Git" "  Github CLI\n  Gitlab CLI" "--width 250 --height 130") in
+  case $(menu "Install Git" "  Github CLI\n  Gitlab CLI") in
   *Github*) install_app "Github CLI" "github-cli" ;;
   *Gitlab*) install_app "Gitlab CLI" "gitlab-cli" ;;
   *) show_install_development_menu ;;
@@ -322,7 +321,7 @@ show_install_git_menu() {
 }
 
 show_install_javascript_menu() {
-  case $(menu "Install" "  Node.js\n  Bun\n  Deno" "--width 250 --height 170") in
+  case $(menu "Install" "  Node.js\n  Bun\n  Deno") in
   *Node*) present_terminal "omadeb-install-dev-env node" ;;
   *Bun*) present_terminal "omadeb-install-dev-env bun" ;;
   *Deno*) present_terminal "omadeb-install-dev-env deno" ;;
@@ -331,7 +330,7 @@ show_install_javascript_menu() {
 }
 
 show_install_elixir_menu() {
-  case $(menu "Install" "  Elixir\n  Phoenix" "--width 250 --height 130") in
+  case $(menu "Install" "  Elixir\n  Phoenix") in
   *Elixir*) present_terminal "omadeb-install-dev-env elixir" ;;
   *Phoenix*) present_terminal "omadeb-install-dev-env phoenix" ;;
   *) show_install_development_menu ;;
@@ -339,7 +338,7 @@ show_install_elixir_menu() {
 }
 
 show_install_editor_menu() {
-  case $(menu "Install" "  VSCode\n  Cursor\n  Zed\n  Emacs" "--width 250 --height 210") in
+  case $(menu "Install" "  VSCode\n  Cursor\n  Zed\n  Emacs") in
   *VSCode*) install_app "Visual Studio Code" "visual-studio-code" ;;
   *Cursor*) install_app "Cursor" "cursor" ;;
   *Zed*) install_app "Zed" "zed" ;;
@@ -349,7 +348,7 @@ show_install_editor_menu() {
 }
 
 show_install_terminal_menu() {
-  case $(menu "Install" "  Alacritty\n  Kitty" "--width 250 --height 130") in
+  case $(menu "Install" "  Alacritty\n  Kitty") in
   *Alacritty*) install_terminal "alacritty" ;;
   *Kitty*) install_terminal "kitty" ;;
   *) show_install_menu ;;
@@ -357,17 +356,20 @@ show_install_terminal_menu() {
 }
 
 show_install_ai_menu() {
-  case $(menu "Install" "󱚤  Claude Code\n󱚤  Copilot CLI\n󱚤  Ollama\n󱚤  OpenCode" "--width 250 --height 210") in
-  *Claude*) install_app "Claude Code" "claude-code" ;;
-  *Copilot*) install_app "Github Copilot CLI" "github-copilot-cli" ;;
+  case $(menu "Install" "󱚤  Claude Code\n󱚤  Codex\n󱚤  Copilot CLI\n󱚤  Gemini CLI\n󱚤  Ollama\n󱚤  OpenCode\n󱚤  Playwright") in
+  *Claude*) present_terminal "omadeb-npx-install @anthropic-ai/claude-code claude" ;;
+  *Codex*) present_terminal "omadeb-npx-install @openai/codex codex" ;;
+  *Copilot*) present_terminal "omadeb-npx-install @github/copilot copilot" ;;
+  *Gemini*) present_terminal "omadeb-npx-install @google/gemini-cli gemini" ;;
   *Ollama*) install_app "Ollama" "ollama" ;;
-  *OpenCode*) install_app "OpenCode" "opencode" ;;
+  *OpenCode*) present_terminal "omadeb-npx-install opencode-ai opencode" ;;
+  *Playwright*) present_terminal "omadeb-npx-install playwright playwright-cli" ;;
   *) show_install_menu ;;
   esac
 }
 
 show_install_gaming_menu() {
-  case $(menu "Install" "  Steam\n  RetroArch\n󰍳  Minecraft" "--width 250 --height 170") in
+  case $(menu "Install" "  Steam\n  RetroArch\n󰍳  Minecraft") in
   *Steam*) install_app "Steam" "steam" ;;
   *RetroArch*) install_app "RetroArch" "retroarch" ;;
   *Minecraft*) install_app "Minecraft" "minecraft" ;;
@@ -376,7 +378,7 @@ show_install_gaming_menu() {
 }
 
 show_remove_menu() {
-  case $(menu "Remove" "  Package\n  Web App\n  TUI\n󰀻  App\n  Style\n󰵮  Development\n󰏓  Preinstalls" "--width 250 --height 320") in
+  case $(menu "Remove" "  Package\n  Web App\n  TUI\n󰀻  App\n  Style\n󰵮  Development\n󰏓  Preinstalls") in
   *Package*) present_terminal omadeb-pkg-remove ;;
   *Web*) present_terminal omadeb-webapp-remove ;;
   *TUI*) present_terminal omadeb-tui-remove ;;
@@ -389,7 +391,7 @@ show_remove_menu() {
 }
 
 show_remove_style_menu() {
-  case $(menu "Remove" "󰸌  Theme\n  Font" "--width 250 --height 130") in
+  case $(menu "Remove" "󰸌  Theme\n  Font") in
   *Theme*) present_terminal omadeb-theme-remove ;;
   *Font*) show_remove_font_menu ;;
   *) show_remove_menu ;;
@@ -397,17 +399,17 @@ show_remove_style_menu() {
 }
 
 show_remove_font_menu() {
-  case $(menu "Remove Font" "  Cascadia Mono\n  JetBrains Mono\n  iA Fonts\n  Microsoft Core Fonts" "--width 350 --height 210") in
-  *Cascadia*) present_terminal "omadeb-remove-font cascadia-mono" ;;
-  *JetBrains*) present_terminal "omadeb-remove-font jetbrains-mono" ;;
-  *iA*) present_terminal "omadeb-remove-font iafonts" ;;
-  *Microsoft*) present_terminal "omadeb-remove-font mscore" ;;
+  case $(menu "Remove Font" "  Cascadia Mono\n  JetBrains Mono\n  iA Fonts\n  Microsoft Core Fonts" "--width 350") in
+  *Cascadia*) remove_font "Cascadia Mono" "cascadia-mono" ;;
+  *JetBrains*) remove_font "JetBrains Mono" "jetbrains-mono" ;;
+  *iA*) remove_font "iA Fonts" "iafonts" ;;
+  *Microsoft*) remove_font "Microsoft Core Fonts" "mscore" ;;
   *) show_remove_menu ;;
   esac
 }
 
 show_remove_development_menu() {
-  case $(menu "Remove Development Environment" "󰫏  Ruby on Rails\n  JavaScript\n  Go\n  PHP\n  Python\n  Elixir\n  Zig\n  Rust\n  Java\n  .NET\n  OCaml\n  Clojure\n  Scala" "--width 250 --height 510") in
+  case $(menu "Remove Development Environment" "󰫏  Ruby on Rails\n  JavaScript\n  Go\n  PHP\n  Python\n  Elixir\n  Zig\n  Rust\n  Java\n  .NET\n  OCaml\n  Clojure\n  Scala") in
   *Rails*) present_terminal "omadeb-remove-dev-env ruby" ;;
   *JavaScript*) show_remove_javascript_menu ;;
   *Go*) present_terminal "omadeb-remove-dev-env go" ;;
@@ -428,11 +430,12 @@ show_remove_development_menu() {
 show_update_menu() {
   local brand_name=$(omadeb-brand)
 
-  case $(menu "Update" "󰟢  $brand_name\n󰔫  Channel\n  Config\n󰸌  Themes\n󰇅  Hardware\n  Firmware\n  Password" "--width 250 --height 320") in
+  case $(menu "Update" "󰟢  $brand_name\n󰔫  Channel\n  Config\n󰸌  Themes\n  Process\n󰇅  Hardware\n  Firmware\n  Password") in
   *$brand_name*) present_terminal omadeb-update ;;
   *Channel*) show_update_channel_menu ;;
   *Config*) show_update_config_menu ;;
   *Themes*) present_terminal omadeb-theme-update ;;
+  *Process*) show_update_process_menu ;;
   *Hardware*) show_update_hardware_menu ;;
   *Firmware*) present_terminal omadeb-update-firmware ;;
   *Password*) show_update_password_menu ;;
@@ -441,7 +444,7 @@ show_update_menu() {
 }
 
 show_update_channel_menu() {
-  case $(menu "Update channel" "🟢 Stable\n🔴 Dev" "--width 250 --height 130") in
+  case $(menu "Update channel" "🟢 Stable\n🔴 Dev") in
   *Stable*) present_terminal "omadeb-channel-set stable" ;;
   *Dev*) present_terminal "omadeb-channel-set dev" ;;
   *) show_update_menu ;;
@@ -449,27 +452,34 @@ show_update_channel_menu() {
 }
 
 show_update_config_menu() {
-  case $(menu "Use default config" "  Gnome\n󰍂  GDM\n  Keybindings\n󱣴  Plymouth\n󰌧  Wofi\n  Starship\n  Zellij" "--width 250 --height 320") in
+  case $(menu "Use default config" "  Gnome\n󰍂  GDM\n  Keybindings\n󱣴  Plymouth\n󰌧  Walker\n  Starship\n  Zellij") in
   *Gnome*) present_terminal omadeb-refresh-gnome ;;
   *GDM*) present_terminal omadeb-refresh-gdm ;;
   *Keybindings*) present_terminal omadeb-refresh-keybindings ;;
   *Plymouth*) present_terminal omadeb-refresh-plymouth ;;
-  *Wofi*) present_terminal omadeb-refresh-wofi ;;
+  *Walker*) present_terminal omadeb-refresh-walker ;;
   *Starship*) present_terminal omadeb-refresh-config starship.toml ;;
   *Zellij*) present_terminal omadeb-refresh-config zellij/config.kdl ;;
   *) show_update_menu ;;
   esac
 }
 
+show_update_process_menu() {
+  case $(menu "Restart" "󰌧  Walker") in
+  *Walker*) omadeb-restart-walker ;;
+  *) show_update_menu ;;
+  esac
+}
+
 show_update_hardware_menu() {
-  case $(menu "Restart" "  Audio" "--width 250 --height 80") in
+  case $(menu "Restart" "  Audio") in
   *Audio*) present_terminal omadeb-restart-pipewire ;;
   *) show_update_menu ;;
   esac
 }
 
 show_update_password_menu() {
-  case $(menu "Update Password" "  User" "--width 250 --height 80") in
+  case $(menu "Update Password" "  User") in
   *User*) present_terminal passwd ;;
   *) show_update_menu ;;
   esac
@@ -480,16 +490,11 @@ show_about() {
 }
 
 show_system_menu() {
-  local options="  Lock"
+  local options="󰌾  Lock"
   [[ ! -f ~/.local/state/omadeb/toggles/suspend-off ]] && options="$options\n󰒲  Suspend"
-  options="$options\n  Logout\n󰜉  Restart\n󰐥  Shutdown"
+  options="$options\n󰌾  Logout\n󰜉  Restart\n󰐥  Shutdown"
 
-  local height=250
-  if [[ -f ~/.local/state/omadeb/toggles/suspend-off ]]; then
-    height=210
-  fi
-
-  case $(menu "System" "$options" "--width 250 --height $height") in
+  case $(menu "System" "$options") in
   *Lock*) omadeb-system-lock-screen ;;
   *Suspend*) systemctl suspend ;;
   *Logout*) omadeb-system-logout ;;
@@ -500,7 +505,7 @@ show_system_menu() {
 }
 
 show_main_menu() {
-  go_to_menu "$(menu "Go" "󰀻  Apps\n󰧑  Learn\n󱓞  Trigger\n  Style\n  Setup\n󰉉  Install\n󰭌  Remove\n  Update\n  About\n  System" "--width 250 --height 440")"
+  go_to_menu "$(menu "Go" "󰀻  Apps\n󰧑  Learn\n󱓞  Trigger\n  Style\n  Setup\n󰉉  Install\n󰭌  Remove\n󰑐  Update\n  About\n󰤆  System")"
 }
 
 go_to_menu() {
@@ -510,6 +515,7 @@ go_to_menu() {
   *trigger*) show_trigger_menu ;;
   *toggle*) show_toggle_menu ;;
   *style*) show_style_menu ;;
+  *background*) show_background_menu ;;
   *theme*) show_theme_menu ;;
   *setup*) show_setup_menu ;;
   *install*) show_install_menu ;;
