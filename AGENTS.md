@@ -53,4 +53,4 @@ Migration format:
 
 - First is shebang line
 - Start with an `echo` describing what the migration does
-- Use `$OKUB_PATH` to reference the omadeb directory
+- Use `$OMADEB_PATH` to reference the omadeb directory
