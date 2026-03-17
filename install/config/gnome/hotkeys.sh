@@ -61,7 +61,7 @@ omadeb-keybinding-add 'Omadeb Menu' 'omadeb-menu' '<Alt><Super>space'
 omadeb-keybinding-add 'Omadeb Themes' 'omadeb-menu theme' '<Super><Shift><Control>space'
 
 # Set omadeb next background to Super+Shift+Control
-omadeb-keybinding-add 'Omadeb Background Next' 'omadeb-theme-bg-next' '<Super><Control>space'
+omadeb-keybinding-add 'Omadeb Background Next' 'omadeb-menu background' '<Super><Control>space'
 
 # Set flameshot (with the sh fix for starting under Wayland) on alternate print screen key
 omadeb-keybinding-add 'Flameshot' 'sh -c -- "flameshot gui"' '<Control>Print'
