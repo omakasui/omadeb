@@ -357,14 +357,8 @@ show_install_terminal_menu() {
 }
 
 show_install_ai_menu() {
-  case $(menu "Install" "󱚤  Claude Code\n󱚤  Codex\n󱚤  Copilot CLI\n󱚤  Gemini CLI\n󱚤  Ollama\n󱚤  OpenCode\n󱚤  Playwright") in
-  *Claude*) present_terminal "omadeb-npx-install @anthropic-ai/claude-code claude" ;;
-  *Codex*) present_terminal "omadeb-npx-install @openai/codex codex" ;;
-  *Copilot*) present_terminal "omadeb-npx-install @github/copilot copilot" ;;
-  *Gemini*) present_terminal "omadeb-npx-install @google/gemini-cli gemini" ;;
+  case $(menu "Install" "󱚤  Ollama") in
   *Ollama*) install_app "Ollama" "ollama" ;;
-  *OpenCode*) present_terminal "omadeb-npx-install opencode-ai opencode" ;;
-  *Playwright*) present_terminal "omadeb-npx-install playwright playwright-cli" ;;
   *) show_install_menu ;;
   esac
 }

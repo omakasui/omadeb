@@ -9,4 +9,5 @@ run_logged $OMADEB_INSTALL/packaging/icons.sh
 run_logged $OMADEB_INSTALL/packaging/apps.sh
 run_logged $OMADEB_INSTALL/packaging/webapps.sh
 run_logged $OMADEB_INSTALL/packaging/tuis.sh
+run_logged $OMADEB_INSTALL/packaging/npx.sh
 
