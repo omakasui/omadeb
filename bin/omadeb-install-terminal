@@ -31,6 +31,7 @@ if omadeb-app-install "$package"; then
     rm -f ~/.config/gnome-xdg-terminals.list
 
     # Create the current config file with only the selected terminal
+    touch ~/.config/xdg-terminals.list
     cat > "~/.config/xdg-terminals.list" << EOF
 # Terminal emulator preference order for xdg-terminal-exec
 # The first found and valid terminal will be used
