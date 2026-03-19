@@ -65,13 +65,13 @@ if omadeb-pkg-present omakasui-ia-writer-mono; then
 fi
 
 # NVim
-echo -e "\e[32m\nChange to omakasui-nvim package\e[0m"
-if omadeb-pkg-present omakasui-nvim; then
-  omadeb-pkg-add omakasui-nvim
+echo -e "\e[32m\nChange to omadeb-nvim package\e[0m"
+if omadeb-pkg-present omadeb-nvim; then
+  omadeb-pkg-add omadeb-nvim
 else
-  omadeb-pkg-add omakasui-nvim
+  omadeb-pkg-add omadeb-nvim
   # Will trigger to overwrite configs or not to pickup new hot-reload themes
-  omakasui-nvim-setup
+  omadeb-nvim-setup
 fi
 
 # Nautilus
