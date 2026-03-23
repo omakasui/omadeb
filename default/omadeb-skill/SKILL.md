@@ -335,7 +335,7 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 40
 ### System
 
 ```bash
-omadeb-update                  # Full system update (Ubuntu + Omadeb)
+omadeb-update                  # Full system update (Debian + Omadeb)
 omadeb-state                   # Show Omadeb state/version
 omadeb-system-shutdown            # Shutdown
 omadeb-system-reboot              # Reboot
