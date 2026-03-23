@@ -2,7 +2,7 @@
 config-file = ?"~/.config/omadeb/current/theme/ghostty.conf"
 
 # Font
-font-family = "JetBrainsMono Nerd Font"
+font-family = "Cascadia Mono Nerd Font"
 font-style = Regular
 font-size = 9
 
