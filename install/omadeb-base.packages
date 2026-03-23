@@ -1,5 +1,6 @@
 # Omadeb core package list installed via install/packaging/base.sh
 
+alacritty
 apache2-utils
 autoconf
 bat

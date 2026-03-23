@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Install Alacritty
-source ~/.local/share/omadeb/applications/install/alacritty.sh
-
 # Install mise
 source ~/.local/share/omadeb/applications/install/mise.sh
 
