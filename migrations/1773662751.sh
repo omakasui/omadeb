@@ -1,5 +1,5 @@
 echo "Migrate to Walker from Wofi"
-omadeb-pkg-add omakasui-walker
+omadeb-pkg-add omadeb-walker
 omadeb-pkg-drop wofi
 
 # Apply Walker and Elephant changes immediately

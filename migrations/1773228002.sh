@@ -26,7 +26,7 @@ echo -e "\e[32m\nRefresh Omakasui packages\e[0m"
 # Gum
 omadeb-pkg-add gum
 
-# Lazygit, Lazydocker, Zellij, Fastfetch
+# Lazygit, Lazydocker, Fastfetch
 if omadeb-pkg-present omakasui-lazygit; then
   omadeb-pkg-drop omakasui-lazygit
 fi
@@ -36,11 +36,6 @@ if omadeb-pkg-present omakasui-lazydocker; then
   omadeb-pkg-drop omakasui-lazydocker
 fi
 omadeb-pkg-add lazydocker
-
-if omadeb-pkg-present omakasui-zellij; then
-  omadeb-pkg-drop omakasui-zellij
-fi
-omadeb-pkg-add zellij
 
 sudo add-apt-repository --remove -y ppa:zhangsongcui3371/fastfetch
 if omadeb-pkg-present omakasui-fastfetch; then
