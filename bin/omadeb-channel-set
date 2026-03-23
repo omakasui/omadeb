@@ -16,9 +16,7 @@ else
 fi
 
 case "$channel" in
-"stable") omadeb-branch-set "main" ;;
-"dev") omadeb-branch-set "dev" ;;
+"stable") omadeb-branch-set "main" && omadeb-refresh-apt "stable" ;;
+"dev") omadeb-branch-set "dev" && omadeb-refresh-apt "dev" ;;
 *) echo "Unknown channel: $channel"; exit 1; ;;
 esac
-
-omadeb-update -y
