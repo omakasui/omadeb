@@ -23,3 +23,4 @@ run_logged $OMADEB_INSTALL/config/gnome/extensions.sh
 run_logged $OMADEB_INSTALL/config/gnome/hotkeys.sh
 run_logged $OMADEB_INSTALL/config/gnome/settings.sh
 run_logged $OMADEB_INSTALL/config/theme.sh
+run_logged $OMADEB_INSTALL/config/zellij.sh
