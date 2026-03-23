@@ -4,8 +4,7 @@ cd /tmp
 curl -L "https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable" | jq -r '.downloadUrl' | xargs curl -L -o cursor.appimage
 sudo mv cursor.appimage /opt/cursor.appimage
 sudo chmod +x /opt/cursor.appimage
-omadeb-pkg-add fuse3
-omadeb-pkg-add libfuse2t64
+omadeb-pkg-add fuse3 libfuse2t64
 
 DESKTOP_FILE="/usr/share/applications/cursor.desktop"
 
