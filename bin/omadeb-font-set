@@ -22,7 +22,7 @@ if [[ -n $font_name && $font_name != "CNCLD" ]]; then
     fi
 
     if pgrep -x ghostty; then
-      omadeb-notify "    You must restart Ghostty to see font change"
+      omadeb-notify -u low "    You must restart Ghostty to see font change"
     fi
 
     omadeb-hook font-set "$font_name"

@@ -54,7 +54,7 @@ present_terminal() {
 }
 
 open_in_editor() {
-  omadeb-notify "Editing config file" "$1"
+  omadeb-notify -u low "Editing config file" "$1"
   omadeb-launch-editor "$1"
 }
 
