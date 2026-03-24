@@ -46,7 +46,8 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>5
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>6']"
 
 # Reserve slots for input source switching
-gsettings set org.gnome.desktop.wm.keybindings switch-input-source "@as []"
+gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Shift><Super>space', '<Super>space']"
+gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift><Super><Alt>space', '<Super><Alt>space']"
 
 # Empty the custom keybindings to start fresh
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[]"
@@ -60,7 +61,7 @@ omadeb-keybinding-add 'Omadeb Menu' 'omadeb-menu' '<Alt><Super>space'
 # Set omadeb theme switcher to Super+Shift+Control+Space
 omadeb-keybinding-add 'Omadeb Themes' 'omadeb-menu theme' '<Super><Shift><Control>space'
 
-# Set omadeb next background to Super+Shift+Control
+# Set omadeb next background to Super+Control+Space
 omadeb-keybinding-add 'Omadeb Background Next' 'omadeb-menu background' '<Super><Control>space'
 
 # Set flameshot (with the sh fix for starting under Wayland) on alternate print screen key
