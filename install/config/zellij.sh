@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Setup Zellij config file
-omadeb-zellij-setup
+omadeb-setup-zellij

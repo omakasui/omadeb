@@ -8,5 +8,5 @@ if omadeb-cmd-present zellij; then
   fi
   omadeb-pkg-add zellij omadeb-zellij
   # Set up the configuration for zellij
-  omadeb-zellij-setup
+  omadeb-setup-zellij
 fi

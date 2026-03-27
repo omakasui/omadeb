@@ -66,7 +66,7 @@ if omadeb-pkg-present omadeb-nvim; then
 else
   omadeb-pkg-add omadeb-nvim
   # Will trigger to overwrite configs or not to pickup new hot-reload themes
-  omadeb-nvim-setup
+  omadeb-setup-nvim
 fi
 
 # Nautilus
