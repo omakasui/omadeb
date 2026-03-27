@@ -202,7 +202,7 @@ show_setup_keybindings_menu() {
 
 show_install_menu() {
   case $(menu "Install" "  Package\n  Web App\n  TUI\n  Service\n  Browser\n  Utility\n  Style\n󰵮  Development\n  Editor\n  Terminal\n󱚤  AI\n  Gaming") in
-  *Package*) present_terminal omadeb-pkg-install ;;
+  *Package*) terminal omadeb-pkg-install ;;
   *Web*) present_terminal omadeb-webapp-install ;;
   *TUI*) present_terminal omadeb-tui-install ;;
   *Service*) show_install_service_menu ;;
@@ -373,7 +373,7 @@ show_install_gaming_menu() {
 
 show_remove_menu() {
   case $(menu "Remove" "  Package\n  Web App\n  TUI\n󰀻  App\n  Style\n󰵮  Development\n󰏓  Preinstalls") in
-  *Package*) present_terminal omadeb-pkg-remove ;;
+  *Package*) terminal omadeb-pkg-remove ;;
   *Web*) present_terminal omadeb-webapp-remove ;;
   *TUI*) present_terminal omadeb-tui-remove ;;
   *App*) present_terminal omadeb-app-remove ;;
