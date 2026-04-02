@@ -7,6 +7,11 @@ if ! pgrep -x elephant > /dev/null; then
    elephant &
 fi
 
+# Ensure walker service is running
+if ! pgrep -f "walker --gapplication-service" > /dev/null; then
+  walker --gapplication-service &
+fi
+
 # Apply default dimensions only when not explicitly overridden by caller
 defaults=()
 args="$*"
