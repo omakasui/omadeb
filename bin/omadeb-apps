@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# Launch an application using omadeb-launch-wofi.
+# Launch an application using omadeb-launch-walker.
 
-omadeb-launch-wofi --show drun --sort-order=alphabetical --width 600 --height 350 --prompt "Launch…"
+omadeb-launch-walker -p "Launch..."

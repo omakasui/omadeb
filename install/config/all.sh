@@ -11,6 +11,7 @@ run_logged $OMADEB_INSTALL/config/mimetypes.sh
 run_logged $OMADEB_INSTALL/config/docker.sh
 run_logged $OMADEB_INSTALL/config/terminal.sh
 run_logged $OMADEB_INSTALL/config/localdb.sh
+run_logged $OMADEB_INSTALL/config/walker-elephant.sh
 run_logged $OMADEB_INSTALL/config/fast-shutdown.sh
 run_logged $OMADEB_INSTALL/config/omadeb-ai-skill.sh
 run_logged $OMADEB_INSTALL/config/hardware/fix-fkeys.sh
@@ -22,3 +23,4 @@ run_logged $OMADEB_INSTALL/config/gnome/extensions.sh
 run_logged $OMADEB_INSTALL/config/gnome/hotkeys.sh
 run_logged $OMADEB_INSTALL/config/gnome/settings.sh
 run_logged $OMADEB_INSTALL/config/theme.sh
+run_logged $OMADEB_INSTALL/config/zellij.sh

@@ -46,7 +46,11 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>5
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>6']"
 
 # Reserve slots for input source switching
-gsettings set org.gnome.desktop.wm.keybindings switch-input-source "@as []"
+gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Shift><Super>space']"
+gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Shift><Super><Alt>space']"
+
+# Set some utility hotkeys
+gsettings set org.gnome.mutter.wayland.keybindings restore-shortcuts "['<Shift><Super>Escape']"
 
 # Empty the custom keybindings to start fresh
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[]"
@@ -60,8 +64,8 @@ omadeb-keybinding-add 'Omadeb Menu' 'omadeb-menu' '<Alt><Super>space'
 # Set omadeb theme switcher to Super+Shift+Control+Space
 omadeb-keybinding-add 'Omadeb Themes' 'omadeb-menu theme' '<Super><Shift><Control>space'
 
-# Set omadeb next background to Super+Shift+Control
-omadeb-keybinding-add 'Omadeb Background Next' 'omadeb-theme-bg-next' '<Super><Control>space'
+# Set omadeb next background to Super+Control+Space
+omadeb-keybinding-add 'Omadeb Background Next' 'omadeb-menu background' '<Super><Control>space'
 
 # Set flameshot (with the sh fix for starting under Wayland) on alternate print screen key
 omadeb-keybinding-add 'Flameshot' 'sh -c -- "flameshot gui"' '<Control>Print'
@@ -84,6 +88,7 @@ omadeb-keybinding-add 'Omadeb System' 'omadeb-menu system' '<Super>Escape'
 # Set applications hotkeys
 omadeb-keybinding-add 'Terminal' 'xdg-terminal-exec' '<Super>Return'
 omadeb-keybinding-add 'Default Terminal' 'xdg-terminal-exec' '<Control><Alt>t'
+omadeb-keybinding-add 'Terminal (Tmux)' 'xdg-terminal-exec bash -c "tmux attach || tmux new -s Work"' '<Super><Alt>Return'
 omadeb-keybinding-add 'Browser' 'omadeb-launch-browser --new-window' '<Shift><Super>b'
 omadeb-keybinding-add 'Browser (Alt)' 'omadeb-launch-browser --new-window' '<Shift><Super>Return'
 omadeb-keybinding-add 'Incognito Browser' 'omadeb-launch-browser --private' '<Shift><Alt><Super>b'

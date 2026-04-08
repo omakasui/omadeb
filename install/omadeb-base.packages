@@ -1,5 +1,6 @@
 # Omadeb core package list installed via install/packaging/base.sh
 
+alacritty
 apache2-utils
 autoconf
 bat
@@ -50,12 +51,11 @@ libyaml-dev
 mpv
 mupdf
 mupdf-tools
+nautilus-open-any-terminal
 obs-studio
 omadeb-nvim
-omakasui-yaru-theme-gtk
-omakasui-yaru-theme-icon
-omakasui-yaru-theme-sound
-omakasui-yaru-theme-gnome-shell
+omadeb-walker
+omadeb-zellij
 pipx
 pkg-config
 plocate
@@ -68,15 +68,20 @@ redis-tools
 ripgrep
 rustc
 sqlite3
+starship
 systemd-container
+tmux
 ufw
 ufw-docker
 unzip
-xdg-terminal-exec
-xournalpp
 wget
 wl-clipboard
-wofi
+xdg-terminal-exec
+xournalpp
+yaru-theme-gtk
+yaru-theme-icon
+yaru-theme-sound
+yaru-theme-gnome-shell
 zellij
 zlib1g-dev
 zoxide

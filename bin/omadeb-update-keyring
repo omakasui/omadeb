@@ -8,7 +8,7 @@ SOURCES_PATH="/etc/apt/sources.list.d/omakasui.list"
 
 _install_sources() {
   echo "deb [arch=$(dpkg --print-architecture) signed-by=$KEYRING_PATH] \
-  https://packages.omakasui.org $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") main" \
+  https://packages.omakasui.org $(. /etc/os-release && echo $VERSION_CODENAME) main" \
   | sudo tee "$SOURCES_PATH" > /dev/null
 }
 

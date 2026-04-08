@@ -13,7 +13,7 @@ curl -fsSL https://keyrings.omakasui.org/omakasui-packages.gpg.key \
   | sudo tee /usr/share/keyrings/omakasui-packages.gpg > /dev/null
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/omakasui-packages.gpg] \
-  https://packages.omakasui.org $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") main" \
+  https://packages.omakasui.org $(. /etc/os-release && echo $VERSION_CODENAME) main" \
   | sudo tee /etc/apt/sources.list.d/omakasui.list > /dev/null
 
 sudo apt update
@@ -26,7 +26,7 @@ echo -e "\e[32m\nRefresh Omakasui packages\e[0m"
 # Gum
 omadeb-pkg-add gum
 
-# Lazygit, Lazydocker, Zellij, Fastfetch
+# Lazygit, Lazydocker, Fastfetch
 if omadeb-pkg-present omakasui-lazygit; then
   omadeb-pkg-drop omakasui-lazygit
 fi
@@ -36,11 +36,6 @@ if omadeb-pkg-present omakasui-lazydocker; then
   omadeb-pkg-drop omakasui-lazydocker
 fi
 omadeb-pkg-add lazydocker
-
-if omadeb-pkg-present omakasui-zellij; then
-  omadeb-pkg-drop omakasui-zellij
-fi
-omadeb-pkg-add zellij
 
 sudo add-apt-repository --remove -y ppa:zhangsongcui3371/fastfetch
 if omadeb-pkg-present omakasui-fastfetch; then
@@ -71,7 +66,7 @@ if omadeb-pkg-present omadeb-nvim; then
 else
   omadeb-pkg-add omadeb-nvim
   # Will trigger to overwrite configs or not to pickup new hot-reload themes
-  omadeb-nvim-setup
+  omadeb-setup-nvim
 fi
 
 # Nautilus

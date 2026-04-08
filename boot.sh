@@ -32,5 +32,12 @@ cd ~/.local/share/omadeb
 git fetch origin "${OMADEB_REF}" && git checkout "${OMADEB_REF}"
 cd -
 
+# Set channel based on branch (dev branch uses dev channel, everything else uses stable)
+if [[ $OMADEB_REF == "dev" ]]; then
+  export OMADEB_CHANNEL=dev
+else
+  export OMADEB_CHANNEL=stable
+fi
+
 echo -e "\nInstallation starting..."
 source ~/.local/share/omadeb/install.sh
