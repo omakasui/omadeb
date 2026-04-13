@@ -48,6 +48,7 @@ libsqlite3-0
 libssl-dev
 libvips42t64
 libyaml-dev
+localsend
 mpv
 mupdf
 mupdf-tools
@@ -56,6 +57,7 @@ obs-studio
 omadeb-nvim
 omadeb-walker
 omadeb-zellij
+pinta
 pipx
 pkg-config
 plocate
