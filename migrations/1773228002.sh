@@ -46,17 +46,17 @@ omadeb-pkg-add fastfetch
 # Fonts
 if omadeb-pkg-present omakasui-font-cascadia-mono-nf; then
   omadeb-pkg-drop omakasui-font-cascadia-mono-nf
-  omadeb-pkg-add font-cascadia-mono-nf
+  omadeb-pkg-add fonts-cascadia-mono-nf
 fi
 
 if omadeb-pkg-present omakasui-font-jetbrains-mono; then
   omadeb-pkg-drop omakasui-font-jetbrains-mono
-  omadeb-pkg-add font-jetbrains-mono
+  omadeb-pkg-add fonts-jetbrains-mono
 fi
 
 if omadeb-pkg-present omakasui-ia-writer-mono; then
   omadeb-pkg-drop omakasui-ia-writer-mono
-  omadeb-pkg-add font-ia-writer-mono
+  omadeb-pkg-add fonts-ia-writer-mono
 fi
 
 # NVim

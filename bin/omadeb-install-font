@@ -11,13 +11,13 @@ mkdir -p ~/.local/share/fonts
 
 case "$1" in
 jetbrains-mono)
-  omadeb-pkg-add font-jetbrains-mono
+  omadeb-pkg-add fonts-jetbrains-mono
   ;;
 iafonts)
-  omadeb-pkg-add font-ia-writer-mono
+  omadeb-pkg-add fonts-ia-writer-mono
   ;;
 cascadia-mono)
-  omadeb-pkg-add font-cascadia-mono-nf
+  omadeb-pkg-add fonts-cascadia-mono-nf
   ;;
 mscore)
   omadeb-pkg-add ttf-mscorefonts-installer
