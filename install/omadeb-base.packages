@@ -1,7 +1,6 @@
 # Omadeb core package list installed via install/packaging/base.sh
 
 alacritty
-apache2-utils
 asdcontrol
 autoconf
 bat
@@ -44,15 +43,12 @@ default-libmysqlclient-dev
 libncurses-dev
 libpq-dev
 libreadline-dev
-libreadline-dev
 libsqlite3-0
 libssl-dev
 libvips42t64
 libyaml-dev
 localsend
 mpv
-mupdf
-mupdf-tools
 nautilus-open-any-terminal
 obs-studio
 omadeb-nvim
@@ -67,12 +63,10 @@ postgresql-client
 postgresql-client-common
 python3-nautilus
 python3-pip
-redis-tools
 ripgrep
 rustc
 sqlite3
 starship
-systemd-container
 tmux
 ufw
 ufw-docker
