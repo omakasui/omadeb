@@ -23,7 +23,7 @@ esac
 desktop_path="/usr/share/applications/$desktop_id"
 
 # Install package
-if omadeb-pkg-install "$package"; then
+if omadeb-pkg-add "$package"; then
   # Set as default terminal
   echo "Setting $package as new default terminal..."
   omadeb-env-set TERMINAL "$package"
