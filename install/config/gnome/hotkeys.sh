@@ -55,47 +55,40 @@ gsettings set org.gnome.mutter.wayland.keybindings restore-shortcuts "['<Shift><
 # Empty the custom keybindings to start fresh
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[]"
 
-# Set apps launcher (wofi) to Super+Space
-omadeb-keybinding-add 'Apps Launcher' 'omadeb-apps' '<Super>space'
 
-# Set omadeb menu to Alt+Super+Space
-omadeb-keybinding-add 'Omadeb Menu' 'omadeb-menu' '<Alt><Super>space'
+# Menus
+omadeb-keybinding-add 'Launch apps' 'omadeb-apps' '<Super>space'
+omadeb-keybinding-add 'Omadeb menu' 'omadeb-menu' '<Alt><Super>space'
+omadeb-keybinding-add 'System menu' 'omadeb-menu system' '<Super>Escape'
 
-# Set omadeb theme switcher to Super+Shift+Control+Space
-omadeb-keybinding-add 'Omadeb Themes' 'omadeb-menu theme' '<Super><Shift><Control>space'
+# Aesthetics
+omadeb-keybinding-add 'Theme menu' 'omadeb-menu theme' '<Super><Shift><Control>space'
+omadeb-keybinding-add 'Background menu' 'omadeb-menu background' '<Super><Control>space'
 
-# Set omadeb next background to Super+Control+Space
-omadeb-keybinding-add 'Omadeb Background Next' 'omadeb-menu background' '<Super><Control>space'
+# Control panels
+omadeb-keybinding-add 'Activity' 'omadeb-launch-tui btop' '<Super><Shift>t'
 
-# Set flameshot (with the sh fix for starting under Wayland) on alternate print screen key
+# Control Apple Display brightness
+omadeb-keybinding-add 'Apple Brightness down' "omadeb-brightness-apple-display -5000" '<Control>F1'
+omadeb-keybinding-add 'Apple Brightness up' "omadeb-brightness-apple-display +5000" '<Control>F2'
+omadeb-keybinding-add 'Apple Brightness max' "omadeb-brightness-apple-display +60000" '<Control><Shift>F2'
+
+# Toggles
+omadeb-keybinding-add 'Nightlight toggle' 'omadeb-toggle-nightlight' '<Super><Control>n'
+
+# Screenshots
 omadeb-keybinding-add 'Flameshot' 'sh -c -- "flameshot gui"' '<Control>Print'
 
-# Turn brightness down on Apple monitor (requires ASDControl installed)
-omadeb-keybinding-add 'Apple Brightness Down (ASDControl)' "omadeb-brightness-apple-display -5000" '<Control>F1'
-
-# Turn brightness up on Apple monitor (requires ASDControl installed)
-omadeb-keybinding-add 'Apple Brightness Up (ASDControl)' "omadeb-brightness-apple-display +5000" '<Control>F2'
-
-# Turn brightness up to max on Apple monitor (requires ASDControl installed)
-omadeb-keybinding-add 'Apple Brightness Max (ASDControl)' "omadeb-brightness-apple-display +60000" '<Control><Shift>F2'
-
-# Set night light toggle to Super+Control+N
-omadeb-keybinding-add 'Night Light Toggle' 'omadeb-toggle-nightlight' '<Super><Control>n'
-
-# Set screen lock to Super+L
-omadeb-keybinding-add 'Omadeb System' 'omadeb-menu system' '<Super>Escape'
-
-# Set applications hotkeys
+# Application bindings
 omadeb-keybinding-add 'Terminal' 'xdg-terminal-exec' '<Super>Return'
-omadeb-keybinding-add 'Default Terminal' 'xdg-terminal-exec' '<Control><Alt>t'
-omadeb-keybinding-add 'Terminal (Tmux)' 'xdg-terminal-exec bash -c "tmux attach || tmux new -s Work"' '<Super><Alt>Return'
+omadeb-keybinding-add 'Terminal' 'xdg-terminal-exec' '<Control><Alt>t'
+omadeb-keybinding-add 'Tmux' 'xdg-terminal-exec bash -c "tmux attach || tmux new -s Work"' '<Super><Alt>Return'
 omadeb-keybinding-add 'Browser' 'omadeb-launch-browser --new-window' '<Shift><Super>b'
-omadeb-keybinding-add 'Browser (Alt)' 'omadeb-launch-browser --new-window' '<Shift><Super>Return'
-omadeb-keybinding-add 'Incognito Browser' 'omadeb-launch-browser --private' '<Shift><Alt><Super>b'
-omadeb-keybinding-add 'File Manager' 'nautilus --new-window' '<Shift><Super>f'
-omadeb-keybinding-add 'Activity' 'omadeb-launch-tui btop' '<Super><Shift>t'
+omadeb-keybinding-add 'Browser' 'omadeb-launch-browser --new-window' '<Shift><Super>Return'
+omadeb-keybinding-add 'Browser (private)' 'omadeb-launch-browser --private' '<Shift><Alt><Super>b'
+omadeb-keybinding-add 'File manager' 'nautilus --new-window' '<Shift><Super>f'
 omadeb-keybinding-add 'Docker' 'omadeb-launch-tui lazydocker' '<Super><Shift>d'
-omadeb-keybinding-add 'Spotify' 'spotify' '<Super><Shift>m'
+omadeb-keybinding-add 'Music' 'spotify' '<Super><Shift>m'
 omadeb-keybinding-add 'Editor' 'omadeb-launch-editor' '<Super><Shift>n'
 
 # Set webapps hotkeys

@@ -72,12 +72,6 @@ gsettings set org.gnome.shell.extensions.tophat network-usage-unit bits
 # Configure AlphabeticalAppGrid
 gsettings set org.gnome.shell.extensions.alphabetical-app-grid folder-order-position 'end'
 
-# Configure Gnome 4x UI Improvements
-# default settings are good!
-
-# Configure [QSTweak] Quick Setting Tweaker
-# default settings are good!
-
 # Configure Icon Launcher extension
 ICON_PATH="$HOME/.config/omadeb/branding/icon-launcher.png"
 gsettings set org.gnome.shell.extensions.icon-launcher custom-icon-path "$ICON_PATH"
