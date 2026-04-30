@@ -8,6 +8,7 @@ run_logged $OMADEB_INSTALL/config/increase-file-watchers.sh
 run_logged $OMADEB_INSTALL/config/xcompose.sh
 run_logged $OMADEB_INSTALL/config/mise-work.sh
 run_logged $OMADEB_INSTALL/config/mimetypes.sh
+run_logged $OMADEB_INSTALL/config/modprobe.sh
 run_logged $OMADEB_INSTALL/config/docker.sh
 run_logged $OMADEB_INSTALL/config/terminal.sh
 run_logged $OMADEB_INSTALL/config/localdb.sh
