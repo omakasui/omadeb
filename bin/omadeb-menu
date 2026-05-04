@@ -220,13 +220,13 @@ show_install_menu() {
 show_install_service_menu() {
   case $(menu "Install" "  1password\n  Bitwarden\n  Discord\n  Dropbox\n  LibreOffice\n  LocalSend\n  ObsStudio\n  Obsidian\n  Signal\n  Spotify\n  Typora\n  Tailscale\n  Zoom") in
   *1password*) install_app "1password" "1password" ;;
-  *Bitwarden*) install_app "Bitwarden" "bitwarden" ;;
+  *Bitwarden*) install "Bitwarden" "bitwarden" ;;
   *Discord*) install_app "Discord" "discord" ;;
-  *Dropbox*) install_app "Dropbox" "dropbox" ;;
+  *Dropbox*) install "Dropbox" "nautilus-dropbox" ;;
   *LibreOffice*) install "LibreOffice" "libreoffice" ;;
   *LocalSend*) install "LocalSend" "localsend" ;;
   *ObsStudio*) install "ObsStudio" "obs-studio" ;;
-  *Obsidian*) install_app "Obsidian" "obsidian" ;;
+  *Obsidian*) install "Obsidian" "obsidian" ;;
   *Signal*) install_app "Signal" "signal" ;;
   *Spotify*) install_app "Spotify" "spotify" ;;
   *Typora*) install_app "Typora" "typora" ;;
@@ -338,7 +338,7 @@ show_install_editor_menu() {
   case $(menu "Install" "  VSCode\n  Cursor\n  Zed\n  Emacs") in
   *VSCode*) install_app "Visual Studio Code" "visual-studio-code" ;;
   *Cursor*) install_app "Cursor" "cursor" ;;
-  *Zed*) install_app "Zed" "zed" ;;
+  *Zed*) install "Zed" "zed" ;;
   *Emacs*) install_app "Doom Emacs" "doom-emacs" ;;
   *) show_install_menu ;;
   esac
